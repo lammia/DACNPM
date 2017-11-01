@@ -1,0 +1,19 @@
+.link_add a:link {
+    color: #0404B4;
+    text-decoration: underline;
+    text-align: center;
+}
+.link_add a:visited {
+    color: #170B3B;
+}
+.link_add a:hover {
+    color: #0404B4;
+    
+}
+.link_add a:active {
+    color: #1C1C1C;
+}
+
+.link_add h5 {
+	text-align: right;
+}
