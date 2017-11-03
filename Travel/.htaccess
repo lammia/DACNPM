@@ -1,0 +1,12 @@
+<IfModule mod_suphp.c>
+    # suPHP_ConfigPath /home/username
+<Files php.ini>
+    # order allow,deny
+    # deny from all
+</Files>
+</IfModule>
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteRule    ^$ public/    [L]
+   RewriteRule    (.*) public/$1 [L]
+</IfModule>
