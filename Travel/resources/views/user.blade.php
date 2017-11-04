@@ -1,7 +1,7 @@
 @extends('index')
 @section('content')
 <body>
-  <table id="example" class="stripe responstable " width="100%" cellspacing="0" border-collapse: collapse ;> 
+  <table class="stripe responstable example" width="100%" cellspacing="0" border-collapse: collapse ;> 
     <h3 style="color: #5a738e;" align="center"> USER MANAGEMENT</h3>
     <a href="{{url('adduser')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD USER</a><br>
     
@@ -35,8 +35,8 @@
       </tr>
     </thead>
 
-    @foreach($account as $item)
     <tbody>
+    @foreach($account as $item)
     <tr>
      <td>{{$item->idAccount}}</td>
      <td>{{$item->nameAccount}}</td>
@@ -52,9 +52,8 @@
         </a>
      </td>
     </tr>
-      
+    @endforeach 
     </tbody>
-    @endforeach
     </table>
 </body>
 @stop

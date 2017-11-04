@@ -157,7 +157,7 @@ class AccountController extends Controller
         		$filename = 'default.png';
         	}
 
-            DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'password'=>$request->password), 'phone'=>$request->phone, 'description'=>$request->des]);
+            DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'password'=>$request->password, 'phone'=>$request->phone, 'description'=>$request->des]);
 
             $id =DB::table('Account')->where('email', $request->email)->value('idAccount');
 

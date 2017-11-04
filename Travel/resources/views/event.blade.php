@@ -1,7 +1,7 @@
 @extends('index')
 @section('content')
 <body>
-  <table class="table table-hover table-bordered responstable" style="border-collapse:collapse;">
+  <table class="table table-hover table-bordered responstable example" style="border-collapse:collapse;">
     <h3 style="color: #5a738e;" align="center"> EVENT MANAGEMENT</h3>
       <a href="{{url('addevent')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD EVENT</a><br>
      <div>
@@ -24,12 +24,12 @@
         <th style="text-align: center">Time end</th>
         <th style="text-align: center">Place</th>
         <th style="text-align: center">Image</th>
-        <th style="text-align: center; width: 24%;">Action</th> 
+        <th style="text-align: center;">Action</th> 
       </tr>
     </thead>
 
-  @foreach($event as $item)
     <tbody>
+    @foreach($event as $item)
     <tr>
      <td>{{$item->idEvent}}</td>
      <td>{{$item->nameEvent}}</td>
@@ -44,10 +44,8 @@
       </a>
      </td>
      </tr>
-    
-    </tbody>
-
     @endforeach
+    </tbody>
 
   </table>
 </body>

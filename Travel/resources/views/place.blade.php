@@ -3,7 +3,7 @@
 
 <body> 
 
-  <table class="table table-hover table-bordered responstable" style="border-collapse:collapse;">
+  <table class="table table-hover table-bordered responstable example" style="border-collapse:collapse;">
     <h3 style="color: #5a738e;" align="center"> PLACE MANAGEMENT</h3>
       <a href="{{url('addplace')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD PLACE</a><br>
     <div>
@@ -31,8 +31,8 @@
       </tr>
     </thead>
 
-    @foreach($place as $item)
     <tbody>
+    @foreach($place as $item)
     <tr>
      <td>{{$item->idPlace}}</td>
      <td>{{$item->namePlace}}</td>
@@ -47,10 +47,8 @@
       </a>
      </td>
      </tr>
-    
-    </tbody>
-
     @endforeach
+    </tbody>
 
   </table>
 </body>

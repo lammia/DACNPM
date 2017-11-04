@@ -15,7 +15,6 @@
     <link href="{{ asset('bootstraps/daterangepicker.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('js/jquery.datetimepicker.min.css') }}">
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <link href="{{ asset('css/mycss.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/link.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/table.css') }}" rel="stylesheet">
@@ -29,7 +28,7 @@
     function confirmAction() {
         return confirm("Are you sure you want to delete?")
     }
-    </script>
+    </script> 
 
 </head>
 
@@ -112,6 +111,10 @@
     step:10
    });
  </script>
+
+ <script src="{{ asset('js/jquery-1.12.4.js')}}"></script>
+ <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+ <script src="{{ asset('js/search.js')}}"></script>
  
 </body>
 </html>
