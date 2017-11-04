@@ -7,11 +7,16 @@
     <h3 style="color: #5a738e;" align="center"> PLACE MANAGEMENT</h3>
       <a href="{{url('addplace')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD PLACE</a><br>
     <div>
-      @if (Session::has('flash_message2'))
+      @if (Session::has('flash_message6'))
       <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message2') !!}
+        {!! Session::get('flash_message6') !!}
       </div>
-      @endif  
+      @endif
+      @if (Session::has('flash_message5'))
+      <div class="alert alert-success form-feedback" role="alert">
+        {!! Session::get('flash_message5') !!}
+      </div>
+    @endif 
     </div>
 
     <thead>

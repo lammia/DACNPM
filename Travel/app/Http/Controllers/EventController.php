@@ -61,10 +61,16 @@ class EventController extends Controller
        ];
 
        $validator = Validator::make($request->all(), $rules, $messages);
+       
         if ($validator->fails()) {
         return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
+            $time =strtotime($request->end) - strtotime($request->begin);
+            if($time <= 0){
+                $errors = new MessageBag(['errortime' => 'Time end must be after time begin']);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
 
             $img = $request->file('image');        
             $filename = time() . '.'. $img->getClientOriginalExtension();            
@@ -72,7 +78,7 @@ class EventController extends Controller
             Image::make($img)->save($location);
 
             DB::table('Event')->insert(['nameEvent'=>$request->name, 'timeBeginEvent'=>$request->begin, 'timeEndEvent'=>$request->end, 'img'=>$filename, 'idPlace'=>$request->place, 'description'=>$request->des]);
-            return redirect('addevent')->with(['flash_message7'=>'Update success.']);
+            return redirect('event')->with(['flash_message9'=>'Update success.']);
         }   
     }
 
@@ -94,25 +100,29 @@ class EventController extends Controller
 
        $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->with(['flash_message3'=>'Update fail.'])->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-        	//dd($request->file('image'));
-        if($request->hasFile('image')){
-          
-            $img = $request->file('image');        
-            $filename = time() . '.'. $img->getClientOriginalExtension();            
-            $location = public_path('upload/'. $filename);
-            Image::make($img)->save($location);
+            $time =strtotime($request->end) - strtotime($request->begin);
+            if($time <= 0){
+                $errors = new MessageBag(['errortime' => 'Time end must be after time begin']);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
+            if($request->hasFile('image')){
+              
+                $img = $request->file('image');        
+                $filename = time() . '.'. $img->getClientOriginalExtension();            
+                $location = public_path('upload/'. $filename);
+                Image::make($img)->save($location);
 
-            DB::table('Event')->where('idEvent',$menu)->update(['nameEvent'=>$request->name, 'timeBeginEvent'=>$request->begin, 'timeEndEvent'=>$request->end, 'idPlace'=>$request->place, 'description'=>$request->des, 'img'=>$filename]);
-             return redirect('event')->with(['flash_message4'=>'Update success.']);
-            
-         }
-         else{
-         	DB::table('Event')->where('idEvent',$menu)->update(['nameEvent'=>$request->name, 'timeBeginEvent'=>$request->begin, 'timeEndEvent'=>$request->end, 'idPlace'=>$request->place, 'description'=>$request->des]);
-             return redirect('event')->with(['flash_message4'=>'Update success.']);
-         }
+                DB::table('Event')->where('idEvent',$menu)->update(['nameEvent'=>$request->name, 'timeBeginEvent'=>$request->begin, 'timeEndEvent'=>$request->end, 'idPlace'=>$request->place, 'description'=>$request->des, 'img'=>$filename]);
+                 return redirect('event')->with(['flash_message7'=>'Update success.']);
+                
+             }
+             else{
+             	DB::table('Event')->where('idEvent',$menu)->update(['nameEvent'=>$request->name, 'timeBeginEvent'=>$request->begin, 'timeEndEvent'=>$request->end, 'idPlace'=>$request->place, 'description'=>$request->des]);
+                 return redirect('event')->with(['flash_message7'=>'Update success.']);
+             }
      	}
         
     }

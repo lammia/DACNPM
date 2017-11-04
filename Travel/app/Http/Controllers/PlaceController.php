@@ -74,7 +74,7 @@ class PlaceController extends Controller
             Image::make($img)->save($location);
 
             DB::table('Place')->insert(['namePlace'=>$request->name, 'MoneyToTravel'=>$request->money, 'address'=>$request->address,'img'=>$filename, 'idType'=>$request->type, 'description'=>$request->des, 'latlog'=>$request->latlog]);
-            return redirect('addplace')->with(['flash_message'=>'Update success.']);
+            return redirect('place')->with(['flash_message5'=>'Update success.']);
         }   
     }
 
@@ -112,11 +112,11 @@ class PlaceController extends Controller
             Image::make($img)->save($location);
         
             DB::table('Place')->where('idPlace',$menu)->update(['namePlace'=>$request->name, 'MoneyToTravel'=>$request->money, 'address'=>$request->address,'img'=>$filename, 'idType'=>$request->type, 'description'=>$request->des, 'latlog'=>$request->latlog]);
-             return redirect('place')->with(['flash_message2'=>'Update success.']);
+             return redirect('place')->with(['flash_message6'=>'Update success.']);
         }
         else{
             DB::table('Place')->where('idPlace',$menu)->update(['namePlace'=>$request->name, 'MoneyToTravel'=>$request->money, 'address'=>$request->address,'idType'=>$request->type, 'description'=>$request->des, 'latlog'=>$request->latlog]);
-             return redirect('place')->with(['flash_message2'=>'Update success.']);
+             return redirect('place')->with(['flash_message6'=>'Update success.']);
         }
 
         }

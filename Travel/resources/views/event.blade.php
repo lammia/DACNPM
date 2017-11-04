@@ -5,11 +5,16 @@
     <h3 style="color: #5a738e;" align="center"> EVENT MANAGEMENT</h3>
       <a href="{{url('addevent')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD EVENT</a><br>
      <div>
-      @if (Session::has('flash_message4'))
+      @if (Session::has('flash_message7'))
       <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message4') !!}
+        {!! Session::get('flash_message7') !!}
       </div>
-      @endif  
+      @endif
+      @if (Session::has('flash_message9'))
+      <div class="alert alert-success form-feedback" role="alert">
+        {!! Session::get('flash_message9') !!}
+      </div>
+    @endif  
     </div>
     <thead>
       <tr align="center" >

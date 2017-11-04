@@ -63,10 +63,10 @@ class AccountController extends Controller
         else{
         	if($request->password == $request->cfpassword){
         		DB::table('Account')->where('idAccount', $menu)->update(['password'=>$request->password]);
-            return redirect('EditUser/'.$menu)->with(['flash_message12'=>'Change password success.']);
+            return redirect('EditUser/'.$menu)->with(['flash_message3'=>'Change password success.']);
         	}
         	else {
-        		return redirect('EditUser/'.$menu)->with(['flash_message13'=>'The password and confirmation password do not match. Please try again.']);
+        		return redirect('EditUser/'.$menu)->with(['flash_message4'=>'The password and confirmation password do not match. Please try again.']);
         	}
         }
     }
@@ -102,13 +102,13 @@ class AccountController extends Controller
 
             DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'phone'=>$request->phone, 'description'=>$request->des]);
             DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
-            return redirect('EditUser/'.$menu)->with(['flash_message11'=>'Update success.']);
+            return redirect('user')->with(['flash_message1'=>'Update success.']);
         	}
 
         	else{
         		DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address, 'phone'=>$request->phone, 'description'=>$request->des]);
             DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
-            return redirect('EditUser/'.$menu)->with(['flash_message11'=>'Update success.']);
+            return redirect('user')->with(['flash_message1'=>'Update success.']);
         	}
         	
         }   
@@ -163,18 +163,23 @@ class AccountController extends Controller
 
             DB::table('MemberGroup')->insert(['idAccount'=>$id, 'idGroup'=>$request->group]);
 
-            return redirect('adduser')->with(['flash_message10'=>'Update success.']);
+            return redirect('user')->with(['flash_message'=>'Update success.']);
         	
         }   
     }
 
     public function delete($menu)
     {   
+        $countadmin=DB::table('MemberGroup')->where('idGroup',1)->count();
 
-        DB::table('MemberGroup')->where('idAccount',$menu)->delete();
-        DB::table('Account')->where('idAccount',$menu)->delete();
+        if($countadmin == 1) {
+          return redirect('user')->with(['flash_message0'=>'Delete fail. Because the system must be at least one a administrator']);
+        }
+
+        // DB::table('MemberGroup')->where('idAccount',$menu)->delete();
+        // DB::table('Account')->where('idAccount',$menu)->delete();
        
-        return redirect('user');
+        // return redirect('user');
     }
 }
 

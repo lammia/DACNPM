@@ -6,13 +6,6 @@
   <h3 style="color: #5a738e" align="center"> EDIT EVENT</h3><br>
   <form action="/updateEvent/{{$event->idEvent}}" method="POST" name="form" style="margin-left: 150px" enctype="multipart/form-data">
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
-  <div>
-    @if (Session::has('flash_message'))
-      <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message') !!}
-      </div>
-    @endif
-  </div>
 
   <div class="form-group">
       <label class="control-label col-sm-2">ID:</label>
@@ -31,7 +24,7 @@
 
   <div class="form-group">
     <label class="control-label col-sm-2">Time Begin:</label>
-    <input type="datetime" class="form-control" required="" id="formGroupExampleInput" name="begin" value="{{$event->timeBeginEvent}}">
+    <input type="" required="" class=" form-control datetime" readonly="" name="begin" value="{{$event->timeBeginEvent}}">
   </div>
   @if($errors->has('begin'))
     <div style="padding-left: 50px;">
@@ -41,11 +34,16 @@
 
    <div class="form-group">
     <label class="control-label col-sm-2">Time End:</label>
-    <input type="datetime" class="form-control" required="" id="formGroupExampleInput" name="end" value="{{$event->timeEndEvent}}">
+    <input type="" class="form-control datetime" required="" readonly="" name="end" value="{{$event->timeEndEvent}}">
   </div>
   @if($errors->has('end'))
     <div style="padding-left: 50px;">
     <p style="color:red">{{ $errors->first('end') }}</p>
+    </div>
+  @endif
+  @if($errors->has('errortime'))
+    <div style="padding-left: 150px;">
+    <p style="color:red">{{ $errors->first('errortime') }}</p>
     </div>
   @endif
   

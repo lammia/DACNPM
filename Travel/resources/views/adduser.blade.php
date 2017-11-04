@@ -4,14 +4,6 @@
   <h3 style="color: #5a738e" align="center"> ADD USER</h3><br>
   <form action="/newuser" method="POST" name="formuser" style="margin-left: 150px" enctype="multipart/form-data">
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
-  <div>
-    @if (Session::has('flash_message10'))
-      <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message10') !!}
-      </div>
-    @endif
-  </div>
-
     <div class="form-group">
       <label class="control-label col-sm-2">Group:</label>
         <select class="input-large form-control" name="group">

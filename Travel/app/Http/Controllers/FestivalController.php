@@ -65,14 +65,18 @@ class FestivalController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-
+            $time =strtotime($request->end) - strtotime($request->begin);
+            if($time <= 0){
+                $errors = new MessageBag(['errortime' => 'Time end must be after time begin']);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
             $img = $request->file('image');        
             $filename = time() . '.'. $img->getClientOriginalExtension();            
             $location = public_path('upload/'. $filename);
             Image::make($img)->save($location);
 
             DB::table('Festival')->insert(['nameFestival'=>$request->name, 'timeBeginFestival'=>$request->begin, 'timeEndFestival'=>$request->end, 'img'=>$filename, 'idPlace'=>$request->place, 'description'=>$request->des]);
-            return redirect('addfestival')->with(['flash_message8'=>'Update success.']);
+            return redirect('festival')->with(['flash_message12'=>'Update success.']);
         }   
     }
 
@@ -97,7 +101,12 @@ class FestivalController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-        	//dd($request->file('image'));
+        $time =strtotime($request->end) - strtotime($request->begin);
+        if($time <= 0){
+            $errors = new MessageBag(['errortime' => 'Time end must be after time begin']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
         if($request->hasFile('image')){
           
             $img = $request->file('image');        
@@ -106,12 +115,12 @@ class FestivalController extends Controller
             Image::make($img)->save($location);
 
             DB::table('Festival')->where('idFestival',$menu)->update(['nameFestival'=>$request->name, 'timeBeginFestival'=>$request->begin, 'timeEndFestival'=>$request->end, 'idPlace'=>$request->place, 'Description'=>$request->des, 'img'=>$filename]);
-             return redirect('festival')->with(['flash_message6'=>'Update success.']);
+             return redirect('festival')->with(['flash_message14'=>'Update success.']);
             
          }
          else{
          	DB::table('Festival')->where('idFestival',$menu)->update(['nameFestival'=>$request->name, 'timeBeginFestival'=>$request->begin, 'timeEndFestival'=>$request->end, 'idPlace'=>$request->place, 'Description'=>$request->des]);
-             return redirect('festival')->with(['flash_message6'=>'Update success.']);
+             return redirect('festival')->with(['flash_message14'=>'Update success.']);
          }
      	}
         

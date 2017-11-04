@@ -5,9 +5,14 @@
     <h3 style="color: #5a738e;" align="center"> FESTIVAL MANAGEMENT</h3>
       <a href="{{url('addfestival')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD FESTIVAL</a><br>
     <div>
-      @if (Session::has('flash_message6'))
+      @if (Session::has('flash_message12'))
       <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message6') !!}
+        {!! Session::get('flash_message12') !!}
+      </div>
+      @endif
+      @if (Session::has('flash_message14'))
+      <div class="alert alert-success form-feedback" role="alert">
+        {!! Session::get('flash_message14') !!}
       </div>
       @endif  
     </div>

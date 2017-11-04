@@ -5,13 +5,6 @@
   <h3 style="color: #5a738e" align="center"> ADD PLACE</h3><br>
   <form  action="/newplace" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data"> 
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
-  <div>
-    @if (Session::has('flash_message'))
-      <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message') !!}
-      </div>
-    @endif
-  </div>
 
     <div class="form-group">
       <label class="control-label col-sm-2">Name:</label>

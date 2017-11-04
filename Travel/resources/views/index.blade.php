@@ -13,6 +13,7 @@
     <link href="{{ asset('bootstraps/jqvmap.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('bootstraps/custom.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bootstraps/daterangepicker.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('js/jquery.datetimepicker.min.css') }}">
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <link href="{{ asset('css/mycss.css') }}" rel="stylesheet"/>
@@ -23,9 +24,6 @@
     <link rel="stylesheet" href="{{ asset('css/Pretty-Footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/font_awesome.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
-
-    <script src="{{ asset('js/date.js') }}"></script>   
-    <script src="{{ asset('js/daterangepicker.js') }}"></script>
 
     <script LANGUAGE="JavaScript">
     function confirmAction() {
@@ -107,6 +105,13 @@
 <script>
   CKEDITOR.replace('ckeditor');
 </script>
+
+ <script src="{{ asset('js/jquery.datetimepicker.full.js')}}"></script>
+ <script>
+   $(".datetime").datetimepicker({
+    step:10
+   });
+ </script>
  
 </body>
 </html>

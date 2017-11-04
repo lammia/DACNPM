@@ -1,10 +1,28 @@
 @extends('index')
 @section('content')
 <body>
-  <table class="table table-hover table-bordered responstable" style="border-collapse:collapse;">
+  <table id="example" class="stripe responstable " width="100%" cellspacing="0" border-collapse: collapse ;> 
     <h3 style="color: #5a738e;" align="center"> USER MANAGEMENT</h3>
     <a href="{{url('adduser')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD USER</a><br>
     
+    <div>
+      @if (Session::has('flash_message0'))
+      <div class="alert alert-danger form-feedback" role="alert">
+        {!! Session::get('flash_message0') !!}
+      </div>
+      @endif
+      @if (Session::has('flash_message1'))
+      <div class="alert alert-success form-feedback" role="alert">
+        {!! Session::get('flash_message1') !!}
+      </div>
+      @endif
+      @if (Session::has('flash_message'))
+      <div class="alert alert-success form-feedback" role="alert">
+        {!! Session::get('flash_message') !!}
+      </div>
+    @endif 
+    </div>
+
     <thead>
       <tr align="center" >
         <th style="text-align: center">ID</th>      

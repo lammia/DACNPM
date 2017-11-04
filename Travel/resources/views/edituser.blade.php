@@ -5,9 +5,9 @@
   <form action="/updateUser/{{$user->idAccount}}" method="POST" name="form" style="margin-left: 150px" enctype="multipart/form-data">
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
   <div>
-    @if (Session::has('flash_message11'))
+    @if (Session::has('flash_message1'))
       <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message11') !!}
+        {!! Session::get('flash_message1') !!}
       </div>
     @endif
   </div>
@@ -87,14 +87,14 @@
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
 
   <div>
-    @if (Session::has('flash_message12'))
+    @if (Session::has('flash_message3'))
       <div class="alert alert-success form-feedback" role="alert">
-        {!! Session::get('flash_message12') !!}
+        {!! Session::get('flash_message3') !!}
       </div>
     @endif
-    @if (Session::has('flash_message13'))
+    @if (Session::has('flash_message4'))
       <div class="alert alert-danger form-feedback" role="alert">
-        {!! Session::get('flash_message13') !!}
+        {!! Session::get('flash_message4') !!}
       </div>
     @endif
   </div>
