@@ -157,7 +157,7 @@ class AccountController extends Controller
         		$filename = 'default.png';
         	}
 
-            DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'password'=>bcrypt($request->password), 'phone'=>$request->phone, 'description'=>$request->des]);
+            DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'password'=>$request->password), 'phone'=>$request->phone, 'description'=>$request->des]);
 
             $id =DB::table('Account')->where('email', $request->email)->value('idAccount');
 
@@ -175,11 +175,12 @@ class AccountController extends Controller
         if($countadmin == 1) {
           return redirect('user')->with(['flash_message0'=>'Delete fail. Because the system must be at least one a administrator']);
         }
-
-        // DB::table('MemberGroup')->where('idAccount',$menu)->delete();
-        // DB::table('Account')->where('idAccount',$menu)->delete();
+        else{
+        DB::table('MemberGroup')->where('idAccount',$menu)->delete();
+        DB::table('Account')->where('idAccount',$menu)->delete();
        
-        // return redirect('user');
+        return redirect('user');
+       }
     }
 }
 
