@@ -37,7 +37,7 @@
      <td>{{$item->timeBeginFestival}}</td>
      <td>{{$item->timeEndFestival}}</td>
      <td>{{$item->places->namePlace}}</td>
-     <td><img class="img-rounded" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
+     <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
      <td>
       <a href="{{url('EditFestival/'.$item->idFestival)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
       <a href="{{ url('/DeleteFestival/'.$item->idFestival) }}" class ="btn btn-danger" 

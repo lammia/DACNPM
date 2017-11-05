@@ -43,11 +43,11 @@
      <td>{{$item->email}}</td>
      <td>{{$item->address}}</td>
      <td>{{$item->phone}}</td>
-     <td><img class="img-rounded" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
+     <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
      <td>
-        <a href="{{url('EditUser/'.$item->idAccount)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
+        <a href="{{url('EditUser/'.$item->idAccount)}}" class="btn btn-success btn-responsive"><i class="fa fa-edit"></i> Edit</a>
 
-        <a href="{{ url('/DeleteUser/'.$item->idAccount) }}" class ="btn btn-danger" 
+        <a href="{{ url('/DeleteUser/'.$item->idAccount) }}" class ="btn btn-danger btn-responsive" 
             onclick="return confirmAction()" ><i class="fa fa-trash-o"></i> Delete
         </a>
      </td>

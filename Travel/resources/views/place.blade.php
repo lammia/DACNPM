@@ -39,7 +39,7 @@
      <td>{{$item->type->nameType}}</td>
      <td>{{$item->MoneyToTravel}}</td>
      <td>{{$item->address}}</td>
-     <td><img class="img-rounded" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
+     <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
      <td>
       <a href="{{url('EditPlace/'.$item->idPlace)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
       <a href="{{ url('/DeletePlace/'.$item->idPlace) }}" class ="btn btn-danger" 

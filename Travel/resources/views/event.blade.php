@@ -24,7 +24,7 @@
         <th style="text-align: center">Time end</th>
         <th style="text-align: center">Place</th>
         <th style="text-align: center">Image</th>
-        <th style="text-align: center;">Action</th> 
+        <th style="text-align: center; width: 24%;">Action</th> 
       </tr>
     </thead>
 
@@ -36,7 +36,7 @@
      <td>{{$item->timeBeginEvent}}</td>
      <td>{{$item->timeEndEvent}}</td>
      <td>{{$item->places->namePlace}}</td>
-     <td><img class="img-rounded" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
+     <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
      <td>
       <a href="{{url('EditEvent/'.$item->idEvent)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
       <a href="{{ url('/DeleteEvent/'.$item->idEvent) }}" class ="btn btn-danger" 
