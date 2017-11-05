@@ -132,6 +132,7 @@ class PlaceController extends Controller
     {
         DB::table('Event')->where('idPlace',$menu)->delete();
         DB::table('Festival')->where('idPlace',$menu)->delete();
+        DB::table('Discount')->where('idPlace',$menu)->delete();
         DB::table('Place')->where('idPlace',$menu)->delete();
         return redirect('place');
     }
