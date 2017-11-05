@@ -139,7 +139,7 @@ class AccountController extends Controller
        'email.email' => 'Please include an "@" in the email address',
        'address.required' => 'Address is a required field.',
        'phone.required' => 'The phone is a required field.',
-       'phone.numeric' => 'The phone is a mumber',
+       'phone.numeric' => 'The phone is a number',
        ];
        $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
@@ -170,17 +170,30 @@ class AccountController extends Controller
 
     public function delete($menu)
     {   
-        $countadmin=DB::table('MemberGroup')->where('idGroup',1)->count();
+        $isadmin = DB::table('MemberGroup')
+                  ->where('idAccount', $menu)
+                  ->where('idGroup',1)
+                  ->first();
+        if($isadmin !=null){
+          $countadmin = DB::table('MemberGroup')->where('idGroup',1)->count();
 
-        if($countadmin == 1) {
-          return redirect('user')->with(['flash_message0'=>'Delete fail. Because the system must be at least one a administrator']);
+          if($countadmin == 1) {
+            return redirect('user')->with(['flash_message0'=>'Delete fail. Because the system must be at least one a administrator']);
+          }
+          else{
+          DB::table('MemberGroup')->where('idAccount',$menu)->delete();
+          DB::table('Account')->where('idAccount',$menu)->delete();
+         
+          return redirect('user');
+         }
         }
         else{
-        DB::table('MemberGroup')->where('idAccount',$menu)->delete();
-        DB::table('Account')->where('idAccount',$menu)->delete();
-       
-        return redirect('user');
-       }
+          DB::table('MemberGroup')->where('idAccount',$menu)->delete();
+          DB::table('Account')->where('idAccount',$menu)->delete();
+         
+          return redirect('user');
+        }
+        
     }
 }
 
