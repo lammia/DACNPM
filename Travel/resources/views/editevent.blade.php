@@ -74,7 +74,7 @@
   <div class="form-group">
       <label class="control-label col-sm-2">Description</label><br><br>
       <div style="padding-right: 90px">
-      <textarea id="ckeditor" name="des" value="{{$event->description}}"></textarea>
+      <textarea id="ckeditor" name="des" value="{{$event->description}}">{{$event->description}}</textarea>
       </div>
     </div>
     @if($errors->has('des'))
