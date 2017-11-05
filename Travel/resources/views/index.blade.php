@@ -87,10 +87,9 @@
 </div>
 </div>
 
-    <!-- jQuery 
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
--->
-<!-- Bootstrap -->
+<script src="{{ asset('js/jquery-1.12.4.js')}}"></script>
+ <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
+ <script src="{{ asset('js/search.js')}}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
 
@@ -111,10 +110,6 @@
     step:10
    });
  </script>
-
- <script src="{{ asset('js/jquery-1.12.4.js')}}"></script>
- <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
- <script src="{{ asset('js/search.js')}}"></script>
  
 </body>
 </html>

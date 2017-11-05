@@ -9,6 +9,10 @@ use Illuminate\Support\MessageBag;
 use App\Account;
 use App\Group;
 use App\MemberGroup;
+use App\Place;
+use App\Event;
+use App\Festival;
+use App\Discount;
 use DB;
 use Image;
 use Session;
@@ -170,10 +174,24 @@ class AccountController extends Controller
 
     public function delete($menu)
     {   
+        $place = DB::table('Place')
+                  ->where('idAccount', $menu)
+                  ->first();
+        $event = DB::table('Event')
+                  ->where('idAccount', $menu)
+                  ->first();
+        $festival = DB::table('Festival')
+                  ->where('idAccount', $menu)
+                  ->first();
+        $discount = DB::table('Discount')
+                  ->where('idAccount', $menu)
+                  ->first();
+
         $isadmin = DB::table('MemberGroup')
                   ->where('idAccount', $menu)
                   ->where('idGroup',1)
                   ->first();
+
         if($isadmin !=null){
           $countadmin = DB::table('MemberGroup')->where('idGroup',1)->count();
 
@@ -181,13 +199,45 @@ class AccountController extends Controller
             return redirect('user')->with(['flash_message0'=>'Delete fail. Because the system must be at least one a administrator']);
           }
           else{
-          DB::table('MemberGroup')->where('idAccount',$menu)->delete();
-          DB::table('Account')->where('idAccount',$menu)->delete();
-         
-          return redirect('user');
-         }
+            if($place != null){
+              DB::table('Event')->where('idPlace', $place->idPlace)->delete();
+              DB::table('Festival')->where('idPlace', $place->idPlace)->delete();
+              DB::table('Discount')->where('idPlace', $place->idPlace)->delete();
+              DB::table('Place')->where('idAccount', $menu)->delete();
+            }
+            if($event != null){
+              DB::table('Event')->where('idAccount', $menu)->delete();
+            }
+            if($festival != null){
+              DB::table('Festival')->where('idAccount', $menu)->delete();
+            }
+            if($discount != null){
+              DB::table('Discount')->where('idAccount', $menu)->delete();
+            }
+
+            DB::table('MemberGroup')->where('idAccount',$menu)->delete();
+            DB::table('Account')->where('idAccount',$menu)->delete();
+           
+            return redirect('user');
+          }
         }
         else{
+          if($place != null){
+            DB::table('Event')->where('idPlace', $place->idPlace)->delete();
+            
+            DB::table('Festival')->where('idPlace', $place->idPlace)->delete();
+            DB::table('Discount')->where('idPlace', $place->idPlace)->delete();
+            DB::table('Place')->where('idAccount', $menu)->delete();
+          }
+          if($event != null){
+            DB::table('Event')->where('idAccount', $menu)->delete();
+          }
+          if($festival != null){
+            DB::table('Festival')->where('idAccount', $menu)->delete();
+          }
+          if($discount != null){
+            DB::table('Discount')->where('idAccount', $menu)->delete();
+          }
           DB::table('MemberGroup')->where('idAccount',$menu)->delete();
           DB::table('Account')->where('idAccount',$menu)->delete();
          
