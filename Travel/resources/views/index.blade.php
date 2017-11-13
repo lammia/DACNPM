@@ -88,6 +88,7 @@
 </div>
 
 <script src="{{ asset('js/jquery-1.12.4.js')}}"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
  <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
  <script src="{{ asset('js/search.js')}}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -110,6 +111,9 @@
     step:10
    });
  </script>
- 
+ <script src="{{ asset('js/mycustom.js')}}"></script>
+
+ <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVh6nvl2uTCD2A2JlVYQeGZ_Mn7_wHBkw"></script> -->
+
 </body>
 </html>

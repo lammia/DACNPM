@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
         //$this->call(typePlaceTableSeeder::class);
         //$this->call(PlaceTableSeeder::class);
         //$this->call(EventTableSeeder::class);
-        $this->call(FestivalTableSeeder::class);
+        //$this->call(FestivalTableSeeder::class);
         //$this->call(GroupTableSeeder::class);
         //$this->call(MemberGroupTableSeeder::class);
+        //$this->call(ProvinceTableSeeder::class);
+        $this->call(DistrictTableSeeder::class);
 
     }
 }

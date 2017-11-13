@@ -17,9 +17,9 @@
       <label class="control-label col-sm-2">Name:</label>
      <input type="text" class="form-control" required="" maxlength="50" id="formGroupExampleInput" name="name">
     </div>
-    @if($errors->has('name'))
+    @if($errors->has('errorname'))
       <div style="padding-left: 150px;">
-      <p style="color:red">{{ $errors->first('name') }}</p>
+      <p style="color:red">{{ $errors->first('errorname') }}</p>
       </div>
     @endif
 
@@ -30,6 +30,11 @@
     @if($errors->has('email'))
       <div style="padding-left: 150px;">
       <p style="color:red">{{ $errors->first('email') }}</p>
+      </div>
+    @endif
+    @if($errors->has('erroremail'))
+      <div style="padding-left: 150px;">
+      <p style="color:red">{{ $errors->first('erroremail') }}</p>
       </div>
     @endif
 
@@ -54,8 +59,20 @@
     @endif
 
     <div class="form-group">
-      <label class="control-label col-sm-2">Adress:</label>
-      <input type="text" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="address">
+      <label class="control-label col-sm-2">Province:</label>
+      <select class="input-large form-control" name="province" id="selectProvince">
+          @foreach( $province as $value)
+          <option value="{{$value->idProvince}}">{{$value->name}}</option>
+          @endforeach
+        </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">District:</label>
+      <select class="input-large form-control" name="province" id="selectDistrict">
+          @foreach( $district as $value)
+          <option value="{{$value->idDistrict}}">{{$value->name}}</option>
+          @endforeach
+        </select>
     </div>
 
     <div class="form-group">

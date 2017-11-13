@@ -2,8 +2,8 @@
 @section('content')
 <body>
   
-  <h3 style="color: #5a738e" align="center"> ADD EVENT</h3><br>
-  <form action="/newevent" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data">
+  <h3 style="color: #5a738e" align="center"> ADD DISCOUNT</h3><br><br>
+  <form action="/newdiscount" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data">
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
 
     <div class="form-group">
@@ -16,12 +16,12 @@
     </div>
 
     <div class="form-group">
-      <label class="control-label col-sm-2">Name:</label>
-      <input type="text" class="form-control" required="" max=100" maxlength="50" id="formGroupExampleInput" name="name">
+      <label class="control-label col-sm-2">Percent Discount: (%)</label>
+      <input type="text" required="" class="form-control" id="formGroupExampleInput" name="percent">
     </div>
-    @if($errors->has('errorname'))
+    @if($errors->has('percent'))
       <div style="padding-left: 150px;">
-      <p style="color:red">{{ $errors->first('errorname') }}</p>
+      <p style="color:red">{{ $errors->first('percent') }}</p>
       </div>
     @endif
 
@@ -49,27 +49,10 @@
           <p style="color:red">{{ $errors->first('errortime') }}</p>
         </div>
     @endif
-    
-    <div class="form-group">
-      <label class="control-label col-sm-2">Image:</label>
-      <input type="file" class="form-control" required="" id="formGroupExampleInput" name="image">
-    </div>
-    @if($errors->has('image'))
-      <div style="padding-left: 150px;">
-      <p style="color:red">{{ $errors->first('image') }}</p>
-      </div>
-    @endif
-
-    <div class="form-group">
-      <label class="control-label col-sm-2">Description</label><br><br>
-      <div style="padding-right: 90px">
-      <textarea id="ckeditor" name="des"></textarea>
-      </div>
-    </div>
-    @if($errors->has('des'))
-      <div style="padding-left: 150px;">
-      <p style="color:red">{{ $errors->first('des') }}</p>
-      </div>
+    @if($errors->has('overlaptime'))
+        <div style="padding-left: 150px;">
+          <p style="color:red">{{ $errors->first('overlaptime') }}</p>
+        </div>
     @endif
 
     <div style="text-align: center; margin-left: -150px">

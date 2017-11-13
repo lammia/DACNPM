@@ -16,7 +16,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'nameAccount', 'email', 'password', 'address', 'phone','img', 'description'
+        'nameAccount', 'email', 'password', 'phone','img', 'description', 'idProvince', 'idDistrict'
     ];
 
 
@@ -32,5 +32,15 @@ class Account extends Model
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPasswordNotification($token));
+    }
+
+    public function provinces()
+    {
+        return $this->belongsTo(Province::class, 'idProvince', 'idProvince');
+    }
+
+    public function districts()
+    {
+        return $this->belongsTo(District::class, 'idDistrict', 'idDistrict');
     }
 }

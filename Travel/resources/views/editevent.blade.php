@@ -16,9 +16,9 @@
       <label class="control-label col-sm-2">Name:</label>
      <input type="text" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="name" value="{{$event->nameEvent}}">
   </div>
-    @if($errors->has('name'))
+    @if($errors->has('errorname'))
       <div style="padding-left: 150px;">
-      <p style="color:red">{{ $errors->first('name') }}</p>
+      <p style="color:red">{{ $errors->first('errorname') }}</p>
       </div>
     @endif          
 

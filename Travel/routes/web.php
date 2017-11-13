@@ -38,6 +38,11 @@ Route::group(['middleware'=>'adminLogin'],function() {
 		Route::get('/addplace', 'PlaceController@addplace');
 		Route::post('/newplace', 'PlaceController@insert');
 
+		Route::get('/typeplace', 'typePlaceController@index');
+		Route::post('/newtype', 'typePlaceController@insert');
+		Route::get('/DeleteType/{menu}', 'typePlaceController@delete');
+		Route::post('/EditType/{menu}', 'typePlaceController@edit');
+
 		Route::get('/event', 'EventController@index');
 		Route::get('/DeleteEvent/{menu}', 'EventController@delete');
 		Route::get('/EditEvent/{menu}', 'EventController@edit');
@@ -51,4 +56,13 @@ Route::group(['middleware'=>'adminLogin'],function() {
 		Route::post('/updateFestival/{menu}', 'FestivalController@update');
 		Route::get('/addfestival', 'FestivalController@addfestival');
 		Route::post('/newfestival', 'FestivalController@insert');
+
+		Route::get('/discount', 'DiscountController@index');
+		Route::get('/DeleteDiscount/{menu}', 'DiscountController@delete');
+		Route::get('/EditDiscount/{menu}', 'DiscountController@edit');
+		Route::post('/updateDiscount/{menu}', 'DiscountController@update');
+		Route::get('/addDiscount', 'DiscountController@addDiscount');
+		Route::post('/newdiscount', 'DiscountController@insert');
+
+		Route::get('/tour', 'TourController@index');
 });

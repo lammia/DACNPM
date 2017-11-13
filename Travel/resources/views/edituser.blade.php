@@ -17,7 +17,6 @@
       <input type="text" disabled="disabled" class="form-control" id="formGroupExampleInput" name="id" value="{{$user->idAccount}}">
     </div>
 
-
     <div class="form-group">
       <label class="control-label col-sm-2">Group:</label>
      <select name ="group" class="input-large form-control">
@@ -36,9 +35,9 @@
       <label class="control-label col-sm-2">Name:</label>
      <input type="text" class="form-control" required="" maxlength="50" id="formGroupExampleInput" name="name" value="{{$user->nameAccount}}">
     </div>
-    @if($errors->has('name'))
+    @if($errors->has('errorname'))
       <div style="padding-left: 150px;">
-      <p style="color:red">{{ $errors->first('name') }}</p>
+      <p style="color:red">{{ $errors->first('errorname') }}</p>
       </div>
     @endif
 
@@ -49,6 +48,11 @@
     @if($errors->has('email'))
       <div style="padding-left: 150px;">
       <p style="color:red">{{ $errors->first('email') }}</p>
+      </div>
+    @endif
+    @if($errors->has('erroremail'))
+      <div style="padding-left: 150px;">
+      <p style="color:red">{{ $errors->first('erroremail') }}</p>
       </div>
     @endif
 
@@ -63,8 +67,28 @@
     @endif
 
     <div class="form-group">
-      <label class="control-label col-sm-2">Adress:</label>
-      <input type="text" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="address" value="{{$user->address}}">
+      <label class="control-label col-sm-2">Province:</label>
+      <select class="input-large form-control selectProvince" name="province" id="selectProvince">
+          @foreach( $province as $value)
+            @if($value->idProvince == $user->idProvince)
+              <option selected="" value="{{$value->idProvince}}">{{$value->name}}</option>
+            @else
+              <option value="{{$value->idProvince}}">{{$value->name}}</option>
+            @endif
+          @endforeach
+        </select>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">District:</label>
+      <select class="input-large form-control selectDistrict" name="province" id="selectDistrict">
+          @foreach( $district as $value)
+            @if($value->idDistrict == $user->idDistrict)
+              <option selected="" value="{{$value->idDistrict}}">{{$value->name}}</option>
+            @else
+              <option value="{{$value->idDistrict}}">{{$value->name}}</option>
+            @endif
+          @endforeach
+        </select>
     </div>
 
     <div class="form-group">

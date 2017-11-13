@@ -5,7 +5,8 @@
 
   <table class="table table-hover table-bordered responstable example" style="border-collapse:collapse;">
     <h3 style="color: #5a738e;" align="center"> PLACE MANAGEMENT</h3>
-      <a href="{{url('addplace')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD PLACE</a><br>
+      <a href="{{url('addplace')}}" class="btn btn-primary"><i class="fa fa-plus"></i> ADD PLACE</a>
+      <a href="{{url('typeplace')}}" class="btn btn-primary"><i class="fa fa-cog"></i> TYPE PLACE</a><br>
     <div>
       @if (Session::has('flash_message6'))
       <div class="alert alert-success form-feedback" role="alert">
@@ -26,6 +27,7 @@
         <th style="text-align: center">Type</th>
         <th style="text-align: center">Money</th>
         <th style="text-align: center">Adress</th>
+        <!-- <th style="text-align: center">Rating</th> -->
         <th style="text-align: center">Image</th>  
         <th style="text-align: center; width: 24%;">Action</th> 
       </tr>

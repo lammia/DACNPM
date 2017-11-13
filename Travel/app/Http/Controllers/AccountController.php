@@ -13,6 +13,8 @@ use App\Place;
 use App\Event;
 use App\Festival;
 use App\Discount;
+use App\Province;
+use App\District;
 use DB;
 use Image;
 use Session;
@@ -24,8 +26,9 @@ class AccountController extends Controller
     public function index()
     {
         $account = Account::all();
-        
-       return view("user", compact('account'));
+        $province = Province::all();
+        $district = District::all();
+       return view("user", compact('account', 'province', 'district'));
 
     }
 
@@ -46,7 +49,11 @@ class AccountController extends Controller
         $group = Group::all();
         $member = DB::table('MemberGroup')
             ->where('idAccount', $menu)->first();
-       	return view("edituser", compact('user', 'group', 'member'));
+        $province = Province::all();
+        $district = DB::table('District')
+                  ->where('idProvince', $user->idProvince)
+                  ->get();
+       	return view("edituser", compact('user', 'group', 'member', 'province', 'district'));
 
     }
 
@@ -95,34 +102,68 @@ class AccountController extends Controller
         if ($validator->fails()) {
         return redirect()->back()->withErrors($validator)->withInput();
         }
-
         else{
-        	if($request->hasFile('image')){
-        		
-            $img = $request->file('image');        
-            $filename = time() . '.'. $img->getClientOriginalExtension();            
-            $location = public_path('upload/'. $filename);
-            Image::make($img)->save($location);
+          $name = $request->name;
+          for( $i = 0; $i <= strlen($name) - 1; $i++){
+            if(($name[$i] >= '!' && $name[$i] <= '@') ||
+               ($name[$i] >= '[' && $name[$i] <= '`') ||
+               ($name[$i] >= '{' && $name[$i] <= '~')){
+              $errors = new MessageBag(['errorname' => 'The name must be string (a-z, A-Z)']);
+              return redirect()->back()->withInput()->withErrors($errors);
+            }
+          }
+  
+          $email = DB::table('Account')
+                  ->where('email', $request->email)->first();
+          $mail = DB::table('Account')
+                  ->where('idAccount', $menu)
+                  ->first();
+          $isoldemail = $mail->email;
+          if($email !=null && ($request->email != $isoldemail)){
+            $errors = new MessageBag(['erroremail' => 'Email already exists']);
+            return redirect()->back()->withInput()->withErrors($errors);
+          }
+          
+          else{
+          	if($request->hasFile('image')){
+          		
+              $img = $request->file('image');        
+              $filename = time() . '.'. $img->getClientOriginalExtension();            
+              $location = public_path('upload/'. $filename);
+              Image::make($img)->save($location);
 
-            DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'phone'=>$request->phone, 'description'=>$request->des]);
-            DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
-            return redirect('user')->with(['flash_message1'=>'Update success.']);
-        	}
+              DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'phone'=>$request->phone, 'description'=>$request->des]);
+              DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
+              return redirect('user')->with(['flash_message1'=>'Update success.']);
+          	}
 
-        	else{
-        		DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address, 'phone'=>$request->phone, 'description'=>$request->des]);
-            DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
-            return redirect('user')->with(['flash_message1'=>'Update success.']);
+          	else{
+          		DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address, 'phone'=>$request->phone, 'description'=>$request->des]);
+              DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
+              return redirect('user')->with(['flash_message1'=>'Update success.']);
+          	}
         	}
-        	
         }   
     }
 
     public function adduser()
     {
-    	$group = Group::all();
+      $group = Group::all();
+      $province = Province::all();
+      $district = DB::table('District')
+          ->where('idProvince', $province[0]->idProvince)
+          ->get();
         
-       return view("adduser", compact('group'));
+      return view("adduser", compact('group', 'province', 'district'));
+
+    }
+    public function getDistrictByProvinceId(request $request)
+    {
+      $district = DB::table('District')
+          ->where('idProvince', $request->idProvince)
+          ->get();
+
+      return \Response::json($district);
 
     }
 
@@ -150,24 +191,42 @@ class AccountController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-        	if($request->hasFile('image')){
-        		
-            $img = $request->file('image');        
-            $filename = time() . '.'. $img->getClientOriginalExtension();            
-            $location = public_path('upload/'. $filename);
-            Image::make($img)->save($location);
-        	}
-        	else{
-        		$filename = 'default.png';
-        	}
+          $name = $request->name;
+          for( $i = 0; $i <= strlen($name) - 1; $i++){
+            if(($name[$i] >= '!' && $name[$i] <= '@') ||
+               ($name[$i] >= '[' && $name[$i] <= '`') ||
+               ($name[$i] >= '{' && $name[$i] <= '~')){
+              $errors = new MessageBag(['errorname' => 'The name must be string (a-z, A-Z)']);
+              return redirect()->back()->withInput()->withErrors($errors);
+            }
+          }
+          $email = DB::table('Account')
+                  ->where('email', $request->email)->first();
+          if($email !=null){
+            $errors = new MessageBag(['erroremail' => 'Email already exists']);
+            return redirect()->back()->withInput()->withErrors($errors);
+          }
+          else{
 
-            DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'password'=>$request->password, 'phone'=>$request->phone, 'description'=>$request->des]);
+          	if($request->hasFile('image')){
+          		
+              $img = $request->file('image');        
+              $filename = time() . '.'. $img->getClientOriginalExtension();            
+              $location = public_path('upload/'. $filename);
+              Image::make($img)->save($location);
+          	}
+          	else{
+          		$filename = 'default.png';
+          	}
 
-            $id =DB::table('Account')->where('email', $request->email)->value('idAccount');
+              DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email,'img'=>$filename, 'password'=>$request->password, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district]);
 
-            DB::table('MemberGroup')->insert(['idAccount'=>$id, 'idGroup'=>$request->group]);
+              $id =DB::table('Account')->where('email', $request->email)->value('idAccount');
 
-            return redirect('user')->with(['flash_message'=>'Update success.']);
+              DB::table('MemberGroup')->insert(['idAccount'=>$id, 'idGroup'=>$request->group]);
+
+              return redirect('user')->with(['flash_message'=>'Update success.']);
+          }
         	
         }   
     }

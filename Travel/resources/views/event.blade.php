@@ -24,6 +24,7 @@
         <th style="text-align: center">Time end</th>
         <th style="text-align: center">Place</th>
         <th style="text-align: center">Image</th>
+        <th style="text-align: center;">Status</th>
         <th style="text-align: center; width: 24%;">Action</th> 
       </tr>
     </thead>
@@ -37,13 +38,25 @@
      <td>{{$item->timeEndEvent}}</td>
      <td>{{$item->places->namePlace}}</td>
      <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
-     <td>
-      <a href="{{url('EditEvent/'.$item->idEvent)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
-      <a href="{{ url('/DeleteEvent/'.$item->idEvent) }}" class ="btn btn-danger" 
+
+    @if((strtotime($item->timeEndEvent) - strtotime($now)) <= 0)
+      <td>Finished</td>
+      <td>
+        <a href="{{url('EditEvent/'.$item->idEvent)}}" disabled="" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
+        <a href="{{ url('/DeleteEvent/'.$item->idEvent) }}" class ="btn btn-danger" 
           onclick="return confirmAction()" ><i class="fa fa-trash-o"></i> Delete
-      </a>
-     </td>
-     </tr>
+        </a>
+      </td>
+    @else
+      <td>Doing</td>
+      <td>
+        <a href="{{url('EditEvent/'.$item->idEvent)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
+        <a href="{{ url('/DeleteEvent/'.$item->idEvent) }}" class ="btn btn-danger" 
+            onclick="return confirmAction()" ><i class="fa fa-trash-o"></i> Delete
+        </a>
+      </td>
+    @endif
+    </tr>
     @endforeach
     </tbody>
 

@@ -18,6 +18,10 @@ class PlaceController extends Controller
     public function index()
     {
         $place = Place::all();
+        // $rating = DB::table('Rating')
+        //         ->where('idTypeService', 1)
+        //         ->select('rating')->get();
+                // dd($rating);
        return view("place", compact('place'));
 
     }
@@ -67,7 +71,15 @@ class PlaceController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-
+            $name = $request->name;
+            for( $i = 0; $i <= strlen($name) - 1; $i++){
+              if(($name[$i] >= '!' && $name[$i] <= '@') ||
+                 ($name[$i] >= '[' && $name[$i] <= '`') ||
+                 ($name[$i] >= '{' && $name[$i] <= '~')){
+                $errors = new MessageBag(['errorname' => 'The name must be string (a-z, A-Z)']);
+                return redirect()->back()->withInput()->withErrors($errors);
+              }
+            }
             $img = $request->file('image');        
             $filename = time() . '.'. $img->getClientOriginalExtension();            
             $location = public_path('upload/'. $filename);
@@ -104,6 +116,15 @@ class PlaceController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
+          $name = $request->name;
+            for( $i = 0; $i <= strlen($name) - 1; $i++){
+              if(($name[$i] >= '!' && $name[$i] <= '@') ||
+                 ($name[$i] >= '[' && $name[$i] <= '`') ||
+                 ($name[$i] >= '{' && $name[$i] <= '~')){
+                $errors = new MessageBag(['errorname' => 'The name must be string (a-z, A-Z)']);
+                return redirect()->back()->withInput()->withErrors($errors);
+              }
+            }
         if($request->hasFile('image')){
           
             $img = $request->file('image');        

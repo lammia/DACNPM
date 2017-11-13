@@ -9,6 +9,7 @@ use App\Place;
 use Illuminate\Support\MessageBag;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use DB;
+use DateTime;
 use Image;
 use Validator;
 
@@ -19,8 +20,9 @@ class EventController extends Controller
     {
         $event = Event::all();
         $place = Place::all();
+        $now = date('Y-m-d h:m:s',time());
         
-       return view("event", compact('event', 'place'));
+       return view("event", compact('event', 'place','now'));
 
     }
 
@@ -66,9 +68,21 @@ class EventController extends Controller
         return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-            $time =strtotime($request->end) - strtotime($request->begin);
-            if($time <= 0){
-                $errors = new MessageBag(['errortime' => 'Time end must be after time begin']);
+            $name = $request->name;
+            for( $i = 0; $i <= strlen($name) - 1; $i++){
+              if(($name[$i] >= '!' && $name[$i] <= '@') ||
+                 ($name[$i] >= '[' && $name[$i] <= '`') ||
+                 ($name[$i] >= '{' && $name[$i] <= '~')){
+                $errors = new MessageBag(['errorname' => 'The name must be string (a-z, A-Z) ']);
+                return redirect()->back()->withInput()->withErrors($errors);
+              }
+            }
+
+            $time = strtotime($request->end) - strtotime($request->begin);
+            $now = date('Y-m-d h:m:s',time());
+            $time2 = strtotime($request->end) - strtotime($now);
+            if($time <= 0 || $time2 <= 0){
+                $errors = new MessageBag(['errortime' => 'Time end must be after time begin and before the time of present']);
                 return redirect()->back()->withInput()->withErrors($errors);
             }
 
@@ -103,9 +117,21 @@ class EventController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         else{
-            $time =strtotime($request->end) - strtotime($request->begin);
-            if($time <= 0){
-                $errors = new MessageBag(['errortime' => 'Time end must be after time begin']);
+            $name = $request->name;
+            for( $i = 0; $i <= strlen($name) - 1; $i++){
+              if(($name[$i] >= '!' && $name[$i] <= '@') ||
+                 ($name[$i] >= '[' && $name[$i] <= '`') ||
+                 ($name[$i] >= '{' && $name[$i] <= '~')){
+                $errors = new MessageBag(['errorname' => 'The name must be string (a-z, A-Z)']);
+                return redirect()->back()->withInput()->withErrors($errors);
+              }
+            }
+            
+            $time = strtotime($request->end) - strtotime($request->begin);
+            $now = date('Y-m-d h:m:s',time());
+            $time2 = strtotime($request->end) - strtotime($now);
+            if($time <= 0 || $time2 <= 0){
+                $errors = new MessageBag(['errortime' => 'Time end must be after time begin and before the time of present']);
                 return redirect()->back()->withInput()->withErrors($errors);
             }
             if($request->hasFile('image')){
