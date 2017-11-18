@@ -1,12 +1,13 @@
 @extends('index')
 @section('content')
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVope279d5hItMMKRXz6hym9Ku5aG0UL0&libraries=places"></script>
- <script src="{{ asset('js/map.js')}}"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&libraries=places"></script>
+  <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVope279d5hItMMKRXz6hym9Ku5aG0UL0&libraries=places"></script>
+  <script src="{{ asset('js/map.js')}}"></script> -->
 <body>
   
   <h3 style="color: #5a738e" align="center"> ADD PLACE</h3><br>
-  <form  action="/newplace" method="POST" name="formplace" enctype="multipart/form-data"> 
+  <form action="/newplace" method="POST" name="formplace" enctype="multipart/form-data"> 
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
 
     <div class="form-group">
@@ -18,11 +19,6 @@
       <p style="color:red">{{ $errors->first('errorname') }}</p>
       </div>
     @endif
-
-    <!-- <div class="form-group">
-      <label class="control-label col-sm-2">account:</label>
-      <input type="text" class="form-control" id="formGroupExampleInput" name="account">
-    </div> -->
 
     <div class="form-group">
       <label class="control-label col-sm-2">Money:</label>
@@ -36,16 +32,17 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Adress:</label>
-      <input type="text" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="address">
+      <input type="text" id="address" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="address" onblur="codeAddress();">
     </div>
     @if($errors->has('address'))
       <div>
       <p style="color:red">{{ $errors->first('address') }}</p>
       </div>
     @endif
-
-    <div id="map">   
-    </div><br>
+    
+    <div class="form-group">
+      <div id="map"></div>
+    </div>
     
     <div class="form-group">
       <label class="control-label col-sm-2">Type:</label>
@@ -63,7 +60,7 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Latlog</label>
-      <input type="text" required="" class="form-control" id="formGroupExampleInput" name="latlog">
+      <input type="text" required="" class="form-control" id="latlog" name="latlog">
     </div>
     @if($errors->has('latlog'))
       <div>
@@ -98,5 +95,7 @@
     </div>
     
   </form>
+
   </body>
+
   @stop

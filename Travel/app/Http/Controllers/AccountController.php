@@ -55,7 +55,10 @@ class AccountController extends Controller
         $district = DB::table('District')
                   ->where('idProvince', $user->idProvince)
                   ->get();
-       	return view("edituser", compact('user', 'group', 'member', 'province', 'district'));
+        $village = DB::table('Village')
+                  ->where('idVillage', $user->idVillage)
+                  ->get();
+       	return view("edituser", compact('user', 'group', 'member', 'province', 'district', 'village'));
 
     }
 

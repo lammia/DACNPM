@@ -92,6 +92,19 @@
     </div>
 
     <div class="form-group">
+      <label class="control-label col-sm-2">Village:</label>
+      <select class="input-large form-control" name="village" id="selectVillage">
+          @foreach( $village as $value)
+            @if($value->idVillage == $user->idVillage)
+              <option selected="" value="{{$value->idVillage}}">{{$value->name}}</option>
+            @else
+              <option value="{{$value->idVillage}}">{{$value->name}}</option>
+            @endif
+          @endforeach
+        </select>
+    </div>
+
+    <div class="form-group">
       <label class="control-label col-sm-2">Image:</label>
       <input type="file" class="form-control" id="formGroupExampleInput" name="image" value="{{$user->img}}">
     </div>

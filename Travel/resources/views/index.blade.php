@@ -113,5 +113,11 @@
  </script>
  <script src="{{ asset('js/mycustom.js')}}"></script>
 
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVope279d5hItMMKRXz6hym9Ku5aG0UL0&v=3.exp&sensor=true&libraries=places"></script>
+  
+  <script src="{{ asset('js/map.js')}}"></script>
+<body>
+
 </body>
 </html>
