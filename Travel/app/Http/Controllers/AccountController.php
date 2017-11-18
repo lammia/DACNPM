@@ -15,6 +15,7 @@ use App\Festival;
 use App\Discount;
 use App\Province;
 use App\District;
+use App\Village;
 use DB;
 use Image;
 use Session;
@@ -28,7 +29,8 @@ class AccountController extends Controller
         $account = Account::all();
         $province = Province::all();
         $district = District::all();
-       return view("user", compact('account', 'province', 'district'));
+        $village = Village::all();
+       return view("user", compact('account', 'province', 'district', 'village'));
 
     }
 
@@ -132,13 +134,13 @@ class AccountController extends Controller
               $location = public_path('upload/'. $filename);
               Image::make($img)->save($location);
 
-              DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address,'img'=>$filename, 'phone'=>$request->phone, 'description'=>$request->des]);
+              DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'img'=>$filename, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district]);
               DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
               return redirect('user')->with(['flash_message1'=>'Update success.']);
           	}
 
           	else{
-          		DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'address'=>$request->address, 'phone'=>$request->phone, 'description'=>$request->des]);
+          		DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district]);
               DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
               return redirect('user')->with(['flash_message1'=>'Update success.']);
           	}
@@ -153,17 +155,37 @@ class AccountController extends Controller
       $district = DB::table('District')
           ->where('idProvince', $province[0]->idProvince)
           ->get();
-        
-      return view("adduser", compact('group', 'province', 'district'));
+      $village = DB::table('Village')
+          ->where('idDistrict', $district[0]->idDistrict)
+          ->get();  
+      return view("adduser", compact('group', 'province', 'district', 'village'));
 
     }
     public function getDistrictByProvinceId(request $request)
     {
-      $district = DB::table('District')
+      $districts = DB::table('District')
           ->where('idProvince', $request->idProvince)
           ->get();
 
-      return \Response::json($district);
+      $villages = DB::table('Village')
+          ->where('idDistrict', $districts[0]->idDistrict)
+          ->get();
+
+      $data["districts"] = $districts;
+      $data["villages"] = $villages;
+
+      return \Response::json($data);
+
+    }
+
+    public function getVillageByDistrictId(request $request)
+    { 
+
+      $village = DB::table('Village')
+          ->where('idDistrict', $request->idDistrict)
+          ->get();
+
+      return \Response::json($village);
 
     }
 

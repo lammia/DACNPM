@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/get-districts', 'AccountController@getDistrictByProvinceId');
+Route::get('/get-villages', 'AccountController@getVillageByDistrictId');
 Route::get('/events', 'ApiController@getEvents');
 Route::get('/places', 'ApiController@getPlaces');

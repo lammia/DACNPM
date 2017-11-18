@@ -65,4 +65,6 @@ Route::group(['middleware'=>'adminLogin'],function() {
 		Route::post('/newdiscount', 'DiscountController@insert');
 
 		Route::get('/tour', 'TourController@index');
+		Route::get('/addtour', 'TourController@addtour');
+		Route::post('/newtour', 'TourController@insert');
 });

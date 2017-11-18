@@ -1,9 +1,12 @@
 @extends('index')
 @section('content')
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVope279d5hItMMKRXz6hym9Ku5aG0UL0&libraries=places"></script>
+ <script src="{{ asset('js/map.js')}}"></script>
 <body>
   
   <h3 style="color: #5a738e" align="center"> ADD PLACE</h3><br>
-  <form  action="/newplace" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data"> 
+  <form  action="/newplace" method="POST" name="formplace" enctype="multipart/form-data"> 
   <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
 
     <div class="form-group">
@@ -11,7 +14,7 @@
       <input type="text" class="form-control" required="" maxlength="50" id="formGroupExampleInput" name="name">
     </div>
     @if($errors->has('errorname'))
-      <div style="padding-left: 150px;">
+      <div >
       <p style="color:red">{{ $errors->first('errorname') }}</p>
       </div>
     @endif
@@ -22,11 +25,11 @@
     </div> -->
 
     <div class="form-group">
-      <label class="control-label col-sm-2">Money</label>
+      <label class="control-label col-sm-2">Money:</label>
       <input type="text" class="form-control" required="" minlength="4" maxlength="10" id="formGroupExampleInput" name="money">
     </div>
     @if($errors->has('money'))
-      <div style="padding-left: 150px;">
+      <div>
       <p style="color:red">{{ $errors->first('money') }}</p>
       </div>
     @endif
@@ -36,10 +39,13 @@
       <input type="text" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="address">
     </div>
     @if($errors->has('address'))
-      <div style="padding-left: 150px;">
+      <div>
       <p style="color:red">{{ $errors->first('address') }}</p>
       </div>
     @endif
+
+    <div id="map">   
+    </div><br>
     
     <div class="form-group">
       <label class="control-label col-sm-2">Type:</label>
@@ -50,7 +56,7 @@
         </select>
     </div>
     @if($errors->has('type'))
-      <div style="padding-left: 150px;">
+      <div>
       <p style="color:red">{{ $errors->first('type') }}</p>
       </div>
     @endif
@@ -60,7 +66,7 @@
       <input type="text" required="" class="form-control" id="formGroupExampleInput" name="latlog">
     </div>
     @if($errors->has('latlog'))
-      <div style="padding-left: 150px;">
+      <div>
       <p style="color:red">{{ $errors->first('latlog') }}</p>
       </div>
     @endif
@@ -70,7 +76,7 @@
       <input type="file" class="form-control" id="formGroupExampleInput" name="image">
     </div>
     @if($errors->has('image'))
-      <div style="padding-left: 150px;">
+      <div>
       <p style="color:red">{{ $errors->first('image') }}</p>
       </div>
     @endif
@@ -82,7 +88,7 @@
       </div>
     </div>
     @if($errors->has('des'))
-      <div style="padding-left: 150px;">
+      <div >
       <p style="color:red">{{ $errors->first('des') }}</p>
       </div>
     @endif

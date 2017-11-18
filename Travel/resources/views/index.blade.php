@@ -18,6 +18,7 @@
     <link href="{{ asset('css/mycss.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/link.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/table.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/map.css') }}" rel="stylesheet"/>
     <!-- Design a Footer -->
     <link rel="stylesheet" href="{{ asset('css/Pretty-Registration-Form.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Pretty-Footer.css') }}">
@@ -88,7 +89,6 @@
 </div>
 
 <script src="{{ asset('js/jquery-1.12.4.js')}}"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
  <script src="{{ asset('js/jquery.dataTables.min.js')}}"></script>
  <script src="{{ asset('js/search.js')}}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
@@ -112,8 +112,6 @@
    });
  </script>
  <script src="{{ asset('js/mycustom.js')}}"></script>
-
- <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVh6nvl2uTCD2A2JlVYQeGZ_Mn7_wHBkw"></script> -->
 
 </body>
 </html>
