@@ -41,7 +41,7 @@
      <td>{{$item->idAccount}}</td>
      <td>{{$item->nameAccount}}</td>
      <td>{{$item->email}}</td>
-     <td>{{$item->districts->name}}, {{$item->provinces->name}}</td>
+     <td>{{$item->villages->name}}, {{$item->districts->name}}, {{$item->provinces->name}}</td>
      <td>{{$item->phone}}</td>
      <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
      <td>

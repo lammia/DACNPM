@@ -91,7 +91,6 @@ class AccountController extends Controller
     	$rules = [
         'name' =>'required|max:100',
         'email' => 'required|email',
-        'address' => 'required',
         'phone' => 'required|numeric',
         ];
        $messages = [
@@ -99,7 +98,6 @@ class AccountController extends Controller
        'name.max' => 'Name less than 100 characters .',
        'email.required' => 'Email is a required field.',
        'email.email' => 'Please include an "@" in the email address',
-       'address.required' => 'Address is a required field.',
        'phone.required' => 'The phone is a required field.',
        'phone.numeric' => 'The phone is a number',
        ];
@@ -137,13 +135,13 @@ class AccountController extends Controller
               $location = public_path('upload/'. $filename);
               Image::make($img)->save($location);
 
-              DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'img'=>$filename, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district]);
+              DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'img'=>$filename, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district, 'idVillage'=>$request->village]);
               DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
               return redirect('user')->with(['flash_message1'=>'Update success.']);
           	}
 
           	else{
-          		DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district]);
+          		DB::table('Account')->where('idAccount', $menu)->update(['nameAccount'=>$request->name, 'email'=>$request->email, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district, 'idVillage'=>$request->village]);
               DB::table('MemberGroup')->where('idAccount', $menu)->update(['idGroup'=>$request->group]);
               return redirect('user')->with(['flash_message1'=>'Update success.']);
           	}
@@ -199,7 +197,6 @@ class AccountController extends Controller
         'name' =>'required|max:100',
         'email' => 'required|email',
         'password'=>'required|min:8',
-        'address' => 'required',
         'phone' => 'required|numeric',
         ];
        $messages = [
@@ -207,7 +204,6 @@ class AccountController extends Controller
        'name.max' => 'Name less than 100 characters .',
        'email.required' => 'Email is a required field.',
        'email.email' => 'Please include an "@" in the email address',
-       'address.required' => 'Address is a required field.',
        'phone.required' => 'The phone is a required field.',
        'phone.numeric' => 'The phone is a number',
        ];
@@ -224,7 +220,7 @@ class AccountController extends Controller
               $errors = new MessageBag(['errorname' => 'The name must be string (a-z, A-Z)']);
               return redirect()->back()->withInput()->withErrors($errors);
             }
-          }
+           }
           $email = DB::table('Account')
                   ->where('email', $request->email)->first();
           if($email !=null){
@@ -242,9 +238,12 @@ class AccountController extends Controller
           	}
           	else{
           		$filename = 'default.png';
+
           	}
 
-              DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email,'img'=>$filename, 'password'=>$request->password, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district]);
+
+
+              DB::table('Account')->insert(['nameAccount'=>$request->name, 'email'=>$request->email,'img'=>$filename, 'password'=>$request->password, 'phone'=>$request->phone, 'description'=>$request->des, 'idProvince'=>$request->province, 'idDistrict'=>$request->district, 'idVillage'=>$request->village]);
 
               $id =DB::table('Account')->where('email', $request->email)->value('idAccount');
 

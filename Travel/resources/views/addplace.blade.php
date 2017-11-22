@@ -12,7 +12,7 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Name:</label>
-      <input type="text" class="form-control" required="" maxlength="50" id="formGroupExampleInput" name="name">
+      <input type="text" class="form-control" required="" maxlength="50" id="name" name="name">
     </div>
     @if($errors->has('errorname'))
       <div >

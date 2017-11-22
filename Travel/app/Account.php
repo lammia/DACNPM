@@ -16,7 +16,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'nameAccount', 'email', 'password', 'phone','img', 'description', 'idProvince', 'idDistrict'
+        'idAccount', 'nameAccount', 'email', 'password', 'phone','img', 'description', 'idProvince', 'idDistrict'
     ];
 
 
@@ -42,5 +42,10 @@ class Account extends Model
     public function districts()
     {
         return $this->belongsTo(District::class, 'idDistrict', 'idDistrict');
+    }
+
+    public function villages()
+    {
+        return $this->belongsTo(Village::class, 'idVillage', 'idVillage');
     }
 }

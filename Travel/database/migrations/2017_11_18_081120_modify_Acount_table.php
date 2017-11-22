@@ -14,15 +14,15 @@ class ModifyAcountTable extends Migration
 
     public function up()
     {
-        Schema::table('Account', function (Blueprint $table) {
-            $table->dropColumn('address');
-            $table->integer('idProvince')->unsigned();
-            $table->integer('idDistrict')->unsigned();
-            $table->integer('idVillage')->unsigned();
-            $table->foreign('idProvince')->references('idProvince')->on('Province')->onDelete('cascade');
-            $table->foreign('idDistrict')->references('idDistrict')->on('District')->onDelete('cascade');
-            $table->foreign('idVillage')->references('idVillage')->on('Village')->onDelete('cascade');
-        });
+        // Schema::table('Account', function (Blueprint $table) {
+        //     $table->dropColumn('address');
+        //     $table->integer('idProvince')->unsigned();
+        //     $table->integer('idDistrict')->unsigned();
+        //     $table->integer('idVillage')->unsigned();
+        //     $table->foreign('idProvince')->references('idProvince')->on('Province')->onDelete('cascade');
+        //     $table->foreign('idDistrict')->references('idDistrict')->on('District')->onDelete('cascade');
+        //     $table->foreign('idVillage')->references('idVillage')->on('Village')->onDelete('cascade');
+        // });
 
     }
 
@@ -34,15 +34,15 @@ class ModifyAcountTable extends Migration
     public function down()
     {
         
-        Schema::table('Account', function (Blueprint $table) {
-            $table->string('address');
-            $table->dropColumn('idProvince');
-            $table->dropColumn('idDistrict');
-            $table->dropColumn('idVillage');
-            $table->dropForeign('Account_idProvince_foreign');
-            $table->dropForeign('Account_idDistrict_foreign');
-            $table->dropForeign('Account_idVillage_foreign');
+        // Schema::table('Account', function (Blueprint $table) {
+        //     $table->string('address');
+        //     $table->dropColumn('idProvince');
+        //     $table->dropColumn('idDistrict');
+        //     $table->dropColumn('idVillage');
+        //     $table->dropForeign('Account_idProvince_foreign');
+        //     $table->dropForeign('Account_idDistrict_foreign');
+        //     $table->dropForeign('Account_idVillage_foreign');
 
-        });
+        // });
     }
 }

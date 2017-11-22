@@ -25,6 +25,7 @@
         <th style="text-align: center">Place</th>
         <th style="text-align: center">Image</th>
         <th style="text-align: center;">Status</th>
+        <th style="text-align: center">Comment</th>
         <th style="text-align: center; width: 24%;">Action</th> 
       </tr>
     </thead>
@@ -42,6 +43,9 @@
     @if((strtotime($item->timeEndEvent) - strtotime($now)) <= 0)
       <td>Finished</td>
       <td>
+      <a href="{{url('CommentEvent/'.$item->idEvent)}}" class="btn btn-info"><i class="fa fa-comments"></i>Comment</a>
+     </td>
+      <td>
         <a href="{{url('EditEvent/'.$item->idEvent)}}" disabled="" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
         <a href="{{ url('/DeleteEvent/'.$item->idEvent) }}" class ="btn btn-danger" 
           onclick="return confirmAction()" ><i class="fa fa-trash-o"></i> Delete
@@ -49,6 +53,9 @@
       </td>
     @else
       <td>Doing</td>
+      <td>
+      <a href="{{url('CommentEvent/'.$item->idEvent)}}" class="btn btn-info"><i class="fa fa-comments"></i>Comment</a>
+     </td>
       <td>
         <a href="{{url('EditEvent/'.$item->idEvent)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
         <a href="{{ url('/DeleteEvent/'.$item->idEvent) }}" class ="btn btn-danger" 

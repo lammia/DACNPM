@@ -24,8 +24,21 @@ class TourController extends Controller
     public function addtour()
     {
         $place = Place::all();
+        $event = DB::table('Event')
+          ->where('idPlace', $place[0]->idPlace)
+          ->get();
 
-        return view("addTour", compact('place'));
+        return view("addTour", compact('place', 'event'));
+
+    }
+
+    public function getEventByPlaceId(request $request)
+    {
+      $events = DB::table('Event')
+          ->where('idPlace', $request->idPlace)
+          ->get();
+
+      return \Response::json($events);
 
     }
 

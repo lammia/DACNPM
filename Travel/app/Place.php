@@ -24,4 +24,9 @@ class Place extends Model
     {
         return $this->belongsTo(typePlace::class, 'idType', 'idType');
     }
+
+    public function ratings()
+    {
+        return $this->belongsTo(Rating::class, 'idPlace', 'idService');
+    }
 }

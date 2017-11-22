@@ -68,7 +68,7 @@
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2">District:</label>
-      <select class="input-large form-control" name="province" id="selectDistrict">
+      <select class="input-large form-control" name="district" id="selectDistrict">
           @foreach( $district as $value)
           <option value="{{$value->idDistrict}}">{{$value->name}}</option>
           @endforeach

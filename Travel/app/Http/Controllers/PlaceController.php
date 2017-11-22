@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Place;
 use App\typePlace;
+use App\Comment;
+use App\Rating;
 use Illuminate\Support\MessageBag;
 use DB;
 use Image;
@@ -18,10 +20,9 @@ class PlaceController extends Controller
     public function index()
     {
         $place = Place::all();
-        // $rating = DB::table('Rating')
-        //         ->where('idTypeService', 1)
+        // $rating = Rating::where('idTypeService', 1)
         //         ->select('rating')->get();
-                // dd($rating);
+                 //dd($rating);
        return view("place", compact('place'));
 
     }
@@ -41,6 +42,15 @@ class PlaceController extends Controller
         $place = Place::all();
         $type = typePlace::all();
        return view("addplace", compact('place', 'type'));
+
+    }
+
+    public function comment($menu)
+    {
+        $comment = Comment::where('idTypeService', 1)
+        ->where('idService', $menu)
+        ->get();
+       return view("commentplace", compact('comment'));
 
     }
 

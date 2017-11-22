@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Event;
 use App\Place;
+use App\Comment;
 use Illuminate\Support\MessageBag;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use DB;
@@ -41,6 +42,15 @@ class EventController extends Controller
         $event = Event::all();
         $place = Place::all();
        return view("addEvent", compact('event', 'place'));
+
+    }
+
+    public function comment($menu)
+    {
+        $comment = Comment::where('idTypeService', 2)
+        ->where('idService', $menu)
+        ->get();
+       return view("commentevent", compact('comment'));
 
     }
 

@@ -43,3 +43,23 @@ $('#selectDistrict').on("change", function(e){
 	   	type: 'GET'
 	});
 })
+
+$('#selectPlace').on("change", function(e){
+	let val = $(this).find("option:selected").val();
+	$.ajax({
+	   	url: '/api/get-events',
+	   	data: {
+	      format: 'json',
+	      idPlace: val,
+	   	},
+	   	success: function(data) {
+
+	   		$("#selectEvent").empty();
+		   	data.map(item => {
+		   		$("#selectEvent").append(`<option value=${item.idEvent}>${item.nameEvent}</option>`);
+		   	});
+
+	   	},
+	   	type: 'GET'
+	});
+})

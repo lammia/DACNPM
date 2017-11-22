@@ -1,79 +1,3 @@
-// var map;
-// var myLatLng;
-// $(document).ready(function(){
-// 	geoLocationInit();
-
-// 	function geoLocationInit(){
-// 		if (navigator.geolocation) {
-// 			navigator.geolocation.getCurrentPosition(success,fail);	
-// 		}else{
-// 			alert("Browser not supported");
-// 		}
-// 	}
-
-// 	function success(position){
-// 		console.log(position);
-// 		var latval = position.coords.latitude;
-// 		var lngval = position.coords.longitude;
-
-// 		myLatLng = new google.maps.LatLng(latval, lngval);
-// 		createMap(myLatLng);
-// 		nearbySearch(myLatLng, "school");
-// 	}
-
-// 	function fail(){
-// 		alert("it fails");
-// 	}
-	
-
-// 	function createMap(myLatLng){
-// 		var map = new google.maps.Map(document.getElementById('map'), {
-// 	        center: myLatLng,
-// 	        zoom: 12
-//     	});
-
-//     	var marker = new google.maps.Marker({
-//     		position: myLatLng,
-//     		map: map
-//     	});
-// 	}
-    
-
-//     function createMarker(latlng, icon, name){
-// 	    var marker = new google.maps.Marker({
-// 		    position: latlng,
-// 		    map: map,
-// 		    icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-// 		    title: name
-// 	  	});
-// 	}
-
-// 	function nearbySearch(myLatLng, type){
-// 		var request = {
-// 		    location: myLatLng,
-// 		    radius: '5000',
-// 		    types: [type]
-//   		};
-//   		service = new google.maps.places.PlacesService(map);
-// 		service.nearbySearch(request, callback);
-
-// 		function callback(results, status) {
-// 			console.log(results);
-// 	  		if (status == google.maps.places.PlacesServiceStatus.OK) {
-// 	    		for (var i = 0; i < results.length; i++) {
-// 		      		var place = results[i];
-// 		      		latlng = place.geometry.location;
-// 		      		icn = place.icon;
-// 		      		name = place.name;
-// 		      		createMarker(latlng, icn, name);
-// 	    		}
-// 	  		}
-// 	  	}
-// 	}
-    
-// });
-
-
 var geocoder;
 var map;
 var infowindow;
@@ -88,9 +12,33 @@ function initialize() {
     center: loca,
     zoom: 12
   });
+
   google.maps.event.addListener(map, 'click', function(event){
   	document.getElementById("latlog").value = event.latLng;
+  	geocodePosition(event.latLng);
+  	addMarker(event.latLng);
   	
+  });
+
+}
+
+function addMarker(location) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+    markers.push(marker);
+}
+
+function geocodePosition(pos) {
+  geocoder.geocode({
+    latLng: pos
+  }, function(responses) {
+    if (responses && responses.length > 0) {
+      updateMarkerAddress(responses[0].formatted_address);
+    } else {
+      updateMarkerAddress('Cannot determine address at this location.');
+    }
   });
 }
 
@@ -117,6 +65,7 @@ function createMarker(place) {
   google.maps.event.addListener(marker, 'mouseover', function() {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
+
   });
 }
 
@@ -126,7 +75,7 @@ function codeAddress() {
     'address': address
   }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
-      map.setCenter(results[0].geometry.location);
+       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
         map: map,
         title: name,
@@ -141,11 +90,21 @@ function codeAddress() {
       };
       infowindow = new google.maps.InfoWindow();
       var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch(request, callback);
+      // service.nearbySearch(request, callback);
+      
+      google.maps.event.addListener(marker, 'mouseover', function() {
+	    infowindow.setContent(results[0].geometry.location);
+	    infowindow.open(map, this);
+	  });
+
+      document.getElementById("latlog").value = results[0].geometry.location;
+      
     } else {
       alert("Geocode was not successful for the following reason: " + status);
     }
   });
 }
+
+
 
 google.maps.event.addDomListener(window, 'load', initialize);

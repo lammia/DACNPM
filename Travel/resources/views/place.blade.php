@@ -27,8 +27,8 @@
         <th style="text-align: center">Type</th>
         <th style="text-align: center">Money</th>
         <th style="text-align: center">Adress</th>
-        <!-- <th style="text-align: center">Rating</th> -->
-        <th style="text-align: center">Image</th>  
+        <th style="text-align: center">Image</th>
+        <th style="text-align: center">Comment</th> 
         <th style="text-align: center; width: 24%;">Action</th> 
       </tr>
     </thead>
@@ -42,6 +42,9 @@
      <td>{{$item->MoneyToTravel}}</td>
      <td>{{$item->address}}</td>
      <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
+     <td>
+      <a href="{{url('CommentPlace/'.$item->idPlace)}}" class="btn btn-info"><i class="fa fa-comments"></i>Comment</a>
+     </td>
      <td>
       <a href="{{url('EditPlace/'.$item->idPlace)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
       <a href="{{ url('/DeletePlace/'.$item->idPlace) }}" class ="btn btn-danger" 
