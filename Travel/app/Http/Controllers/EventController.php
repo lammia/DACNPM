@@ -174,4 +174,10 @@ class EventController extends Controller
         DB::table('Event')->where('idEvent',$menu)->delete();
         return redirect('event');
     }
+
+    public function deletecomment($menu)
+    {
+        DB::table('Comment')->where('idComment',$menu)->delete();
+        return redirect('commentevent');
+    }
 }

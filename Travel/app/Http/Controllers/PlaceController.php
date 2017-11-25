@@ -167,4 +167,10 @@ class PlaceController extends Controller
         DB::table('Place')->where('idPlace',$menu)->delete();
         return redirect('place');
     }
+
+    public function deletecomment($menu)
+    {
+        DB::table('Comment')->where('idComment',$menu)->delete();
+        return redirect('commentplace');
+    }
 }
