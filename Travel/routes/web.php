@@ -39,6 +39,8 @@ Route::group(['middleware'=>'adminLogin'],function() {
 		Route::post('/newplace', 'PlaceController@insert');
 		Route::get('/CommentPlace/{menu}', 'PlaceController@comment');
 		Route::get('/DeleteCommentPlace/{menu}', 'PlaceController@deletecomment');
+		Route::post('/newcommentplace', 'PlaceController@insertcomment');
+		Route::post('/editcommentplace/{menu}', 'PlaceController@editcomment');
 
 		Route::get('/typeplace', 'typePlaceController@index');
 		Route::post('/newtype', 'typePlaceController@insert');
@@ -53,6 +55,8 @@ Route::group(['middleware'=>'adminLogin'],function() {
 		Route::post('/newevent', 'EventController@insert');
 		Route::get('/CommentEvent/{menu}', 'EventController@comment');
 		Route::get('/DeleteCommentEvent/{menu}', 'EventController@deletecomment');
+		Route::post('/newcommentevent', 'EventController@insertcomment');
+		Route::post('/editcommentevent/{menu}', 'EventController@editcomment');
 
 		Route::get('/festival', 'FestivalController@index');
 		Route::get('/DeleteFestival/{menu}', 'FestivalController@delete');

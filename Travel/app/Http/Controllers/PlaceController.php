@@ -50,8 +50,25 @@ class PlaceController extends Controller
         $comment = Comment::where('idTypeService', 1)
         ->where('idService', $menu)
         ->get();
-       return view("commentplace", compact('comment'));
+        $idplace = $menu;
 
+       return view("commentplace", compact('comment', 'idplace'));
+
+    }
+
+    public function insertcomment(request $request){
+      $admin = Session::get('admin');
+      $idadmin = $admin->idAccount;
+      $now = date('Y-m-d h:m:s',time());
+
+      DB::table('Comment')->insert(['idAccount'=>$idadmin, 'idTypeService'=>'1', 'idService'=>$request->place, 'content'=>$request->content, 'timeComment'=>$now]);
+            return redirect()->back()->with(['flash_message01'=>'Update success.']);
+    }
+
+    public function editcomment(request $request, $menu){
+      $now = date('Y-m-d h:m:s',time());
+      DB::table('Comment')->where('idComment', $menu)->update(['content'=>$request->content, 'timeComment'=>$now]);
+            return redirect()->back()->with(['flash_message02'=>'Update success.']);
     }
 
     public function insert (request $request)
@@ -171,6 +188,6 @@ class PlaceController extends Controller
     public function deletecomment($menu)
     {
         DB::table('Comment')->where('idComment',$menu)->delete();
-        return redirect('commentplace');
+        return redirect()->back();
     }
 }
