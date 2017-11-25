@@ -30,7 +30,7 @@
         </li>
         <li><a href="{{url('event')}}"><i class="fa fa-table"></i> Event</a>
         </li>
-        <li><a href="{{url('festival')}}"><i class="fa fa-table"></i> Festival</a>
+        <!-- <li><a href="{{url('festival')}}"><i class="fa fa-table"></i> Festival</a> -->
         </li>
         <li><a href="{{url('discount')}}"><i class="fa fa-table"></i> Discount</a>
         </li>
