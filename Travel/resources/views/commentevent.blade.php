@@ -94,7 +94,7 @@
 
                   <div class="form-group">
                     <label class="control-label col-sm-2">ID:</label>
-                    <input type="text" class="form-control" name="event" value="{{$item->idComment}}" >
+                    <input type="text" class="form-control" disabled="disabled" name="event" value="{{$item->idComment}}" >
                   </div>
 
                   <div class="form-group">
