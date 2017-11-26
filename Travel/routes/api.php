@@ -14,8 +14,10 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
 });
+
+Route::post('/login', 'ApiController@login');
 
 Route::get('/get-districts', 'AccountController@getDistrictByProvinceId');
 Route::get('/get-villages', 'AccountController@getVillageByDistrictId');

@@ -4,12 +4,12 @@
 <body>
   
   <h3 style="color: #5a738e" align="center"> ADD TOUR</h3><br>
-  <form  action="/newtour" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data"> 
+  <form  action="/update-tour/{{$tour->idSchedule}}" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data"> 
   <input type="hidden" name="_token" value="{!!csrf_token()!!}">
 
     <div class="form-group">
       <label class="control-label col-sm-2">People</label>
-      <input type="text" class="form-control" required="" maxlength="10" id="formGroupExampleInput" name="people">
+      <input type="text" class="form-control" required="" maxlength="10" id="formGroupExampleInput" name="people" value="{{$tour->  amountOfPeople}}">
     </div>
     @if($errors->has('errorpeople'))
       <div style="padding-left: 150px;">
@@ -19,7 +19,7 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Money</label>
-      <input type="text" class="form-control" required="" minlength="4" maxlength="10" id="formGroupExampleInput" name="money">
+      <input type="text" class="form-control" required="" minlength="4" maxlength="10" id="formGroupExampleInput" name="money" value="{{$tour->money}}">
     </div>
     @if($errors->has('money'))
       <div style="padding-left: 150px;">
@@ -29,7 +29,7 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Time begin:</label>
-      <input type="" required="" class=" form-control datetime" readonly="" name="begin">  
+      <input type="" required="" class=" form-control datetime" readonly="" name="begin" value="{{$tour->timeBegin}}">  
     </div>
     @if($errors->has('begin'))
       <div style="padding-left: 150px;">
@@ -39,7 +39,7 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Time end:</label>
-      <input type="" class="form-control datetime" required="" readonly="" name="end">  
+      <input type="" class="form-control datetime" required="" readonly="" name="end" value="{{$tour->timeEnd}}">  
     </div>
     @if($errors->has('end'))
       <div style="padding-left: 150px;">

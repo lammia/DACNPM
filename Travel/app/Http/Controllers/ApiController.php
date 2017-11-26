@@ -22,11 +22,17 @@ use Validator;
 
 class ApiController extends Controller
 {
+  public function login(request $request) {
+    $acc = Account::where('email', $request->email)->first();
+    if ($acc->password === $request->password) {
+      return \Response::json($acc);
+    }
+    return \Response::json("User Invalid");
+  }
+
   public function getEvents(request $request)
   {
-    // $events = DB::table('Event')->get();
-
-    $dummydata = [
+    $data = [
       "listEvents" => [
         [
           "id" => "e001",
@@ -157,14 +163,13 @@ class ApiController extends Controller
       ],
     ];
 
-    return \Response::json($dummydata);
-
+    return \Response::json($data);
   }
 
 
   public function getPlaces(request $request)
   {
-    $dummydata = [
+    $data = [
       "listPlaces" => [
         [
           "id" => "p001",
@@ -428,7 +433,7 @@ class ApiController extends Controller
       ],
     ];
 
-    return \Response::json($dummydata);
+    return \Response::json($data);
   }
 }
 

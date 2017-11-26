@@ -24,11 +24,23 @@ class TourController extends Controller
     public function addtour()
     {
         $place = Place::all();
-        $event = DB::table('Event')
-          ->where('idPlace', $place[0]->idPlace)
-          ->get();
+        // $event = DB::table('Event')
+        //   ->where('idPlace', $place[0]->idPlace)
+        //   ->get();
 
-        return view("addTour", compact('place', 'event'));
+        return view("addTour", compact('place'));
+
+    }
+
+    public function edit($id)
+    {
+        $place = Place::all();
+
+        $tour = DB::table('Schedule')
+          ->where('idSchedule', $id)
+          ->first();
+
+        return view("editTour", compact('tour', 'place'));
 
     }
 
@@ -49,9 +61,54 @@ class TourController extends Controller
         $tour->timeBegin = $request->begin;
         $tour->timeEnd = $request->end;
         $tour->money = $request->money;
-
         $tour->save();
 
+        // dd($tour->idSchedule);
+
+        // for ($i=0; $i < count($request->place); $i++) { 
+        //     $model = new listPlace();
+
+        //     $model->idPlace = $request->place[$i];
+        //     $model->idSchedule = $tour->idSchedule;
+        //     $model->save();
+        // }
+        return redirect('/tour');
+
+    }
+
+    public function update(request $request, $id){
+        $tour = Schedule::where('idSchedule', $id)->first();
+
+        $tour->amountOfPeople = $request->people;
+        $tour->timeBegin = $request->begin;
+        $tour->timeEnd = $request->end;
+        $tour->money = $request->money;
+
+        DB::table('Schedule')->where('idSchedule',$id)->update(['amountOfPeople'=>$request->people, 'timeBegin'=>$request->begin, 'timeEnd'=>$request->end, 'money'=>$request->money]);
+
+        // dd($tour->idSchedule);
+
+        // for ($i=0; $i < count($request->place); $i++) { 
+        //     $model = new listPlace();
+
+        //     $model->idPlace = $request->place[$i];
+        //     $model->idSchedule = $tour->idSchedule;
+        //     $model->save();
+        // }
+        return redirect('/tour');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function delete($id)
+    {
+        DB::table('Schedule')->where('idSchedule',$id)->delete();
+        return redirect('/tour');
     }
 
      
