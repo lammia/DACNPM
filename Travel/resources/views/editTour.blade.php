@@ -4,7 +4,7 @@
 <body>
   
   <h3 style="color: #5a738e" align="center"> ADD TOUR</h3><br>
-  <form  action="/update-tour/{{$tour->idSchedule}}" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data"> 
+  <form  action="/update-tour/{{$tour->id}}" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data"> 
   <input type="hidden" name="_token" value="{!!csrf_token()!!}">
 
     <div class="form-group">

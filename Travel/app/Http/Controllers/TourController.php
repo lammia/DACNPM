@@ -37,7 +37,7 @@ class TourController extends Controller
         $place = Place::all();
 
         $tour = DB::table('Schedule')
-          ->where('idSchedule', $id)
+          ->where('id', $id)
           ->first();
 
         return view("editTour", compact('tour', 'place'));
@@ -63,38 +63,35 @@ class TourController extends Controller
         $tour->money = $request->money;
         $tour->save();
 
-        // dd($tour->idSchedule);
+        for ($i=0; $i < count($request->place); $i++) { 
+            $model = new listPlace();
 
-        // for ($i=0; $i < count($request->place); $i++) { 
-        //     $model = new listPlace();
-
-        //     $model->idPlace = $request->place[$i];
-        //     $model->idSchedule = $tour->idSchedule;
-        //     $model->save();
-        // }
+            $model->idPlace = $request->place[$i];
+            $model->idSchedule = $tour->id;
+            $model->save();
+        }
         return redirect('/tour');
 
     }
 
     public function update(request $request, $id){
-        $tour = Schedule::where('idSchedule', $id)->first();
+        $tour = Schedule::where('id', $id)->first();
 
         $tour->amountOfPeople = $request->people;
         $tour->timeBegin = $request->begin;
         $tour->timeEnd = $request->end;
         $tour->money = $request->money;
+        $tour->save();
 
-        DB::table('Schedule')->where('idSchedule',$id)->update(['amountOfPeople'=>$request->people, 'timeBegin'=>$request->begin, 'timeEnd'=>$request->end, 'money'=>$request->money]);
 
-        // dd($tour->idSchedule);
+        DB::table('listPlace')->where('idSchedule', $id)->delete();
+        for ($i=0; $i < count($request->place); $i++) { 
+            $model = new listPlace();
 
-        // for ($i=0; $i < count($request->place); $i++) { 
-        //     $model = new listPlace();
-
-        //     $model->idPlace = $request->place[$i];
-        //     $model->idSchedule = $tour->idSchedule;
-        //     $model->save();
-        // }
+            $model->idPlace = $request->place[$i];
+            $model->idSchedule = $tour->id;
+            $model->save();
+        }
         return redirect('/tour');
 
     }
@@ -107,7 +104,8 @@ class TourController extends Controller
      */
     public function delete($id)
     {
-        DB::table('Schedule')->where('idSchedule',$id)->delete();
+        DB::table('listPlace')->where('idSchedule', $id)->delete();
+        DB::table('Schedule')->where('id',$id)->delete();
         return redirect('/tour');
     }
 

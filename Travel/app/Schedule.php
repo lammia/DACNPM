@@ -9,7 +9,7 @@ class Schedule extends Model
 	public $table = "Schedule";
   public $incrementing = true;
   protected $fillable = [
-      'idSchedule','amountOfPeople', 'money', 'timeBegin', 'timeEnd', 'type'
+      'amountOfPeople', 'money', 'timeBegin', 'timeEnd', 'type'
   ];
   public function listplace()
   {
