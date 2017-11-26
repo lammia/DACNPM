@@ -13,6 +13,7 @@ use DB;
 use DateTime;
 use Image;
 use Validator;
+use Session;
 
 class EventController extends Controller
 {
@@ -50,8 +51,24 @@ class EventController extends Controller
         $comment = Comment::where('idTypeService', 2)
         ->where('idService', $menu)
         ->get();
-       return view("commentevent", compact('comment'));
+        $idevent = $menu;
+       return view("commentevent", compact('comment', 'idevent'));
 
+    }
+
+    public function insertcomment(request $request){
+      $admin = Session::get('admin');
+      $idadmin = $admin->idAccount;
+      $now = date('Y-m-d h:m:s',time());
+
+      DB::table('Comment')->insert(['idAccount'=>$idadmin, 'idTypeService'=>'2', 'idService'=>$request->event, 'content'=>$request->content, 'timeComment'=>$now]);
+            return redirect()->back()->with(['flash_message03'=>'Update success.']);
+    }
+
+    public function editcomment(request $request, $menu){
+      $now = date('Y-m-d h:m:s',time());
+      DB::table('Comment')->where('idComment', $menu)->update(['content'=>$request->content, 'timeComment'=>$now]);
+            return redirect()->back()->with(['flash_message04'=>'Update success.']);
     }
 
     public function insert (request $request)
@@ -178,6 +195,6 @@ class EventController extends Controller
     public function deletecomment($menu)
     {
         DB::table('Comment')->where('idComment',$menu)->delete();
-        return redirect('commentevent');
+        return redirect()->back();
     }
 }

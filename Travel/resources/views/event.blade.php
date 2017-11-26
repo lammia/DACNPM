@@ -26,7 +26,7 @@
         <th style="text-align: center">Image</th>
         <th style="text-align: center;">Status</th>
         <th style="text-align: center">Comment</th>
-        <th style="text-align: center; width: 24%;">Action</th> 
+        <th style="text-align: center; width: 20%;">Action</th> 
       </tr>
     </thead>
 
@@ -43,7 +43,7 @@
     @if((strtotime($item->timeEndEvent) - strtotime($now)) <= 0)
       <td>Finished</td>
       <td>
-      <a href="{{url('CommentEvent/'.$item->idEvent)}}" class="btn btn-info"><i class="fa fa-comments"></i>Comment</a>
+      <a href="{{url('CommentEvent/'.$item->idEvent)}}" class="btn btn-info btn-block"><i class="fa fa-comments"></i>Comment</a>
      </td>
       <td>
         <a href="{{url('EditEvent/'.$item->idEvent)}}" disabled="" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
@@ -54,7 +54,7 @@
     @else
       <td>Doing</td>
       <td>
-      <a href="{{url('CommentEvent/'.$item->idEvent)}}" class="btn btn-info"><i class="fa fa-comments"></i>Comment</a>
+      <a href="{{url('CommentEvent/'.$item->idEvent)}}" class="btn btn-info btn-block"><i class="fa fa-comments"></i>Comment</a>
      </td>
       <td>
         <a href="{{url('EditEvent/'.$item->idEvent)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>

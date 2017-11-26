@@ -136,7 +136,7 @@ class DiscountController extends Controller
                 $errors = new MessageBag(['errortime' => 'Time end must be after time begin and before the time of present']);
                 return redirect()->back()->withInput()->withErrors($errors);
             }
-            ////////////////////////////////////
+           
 
             $list = DB::table('Discount')
                 ->where('idPlace',$request->place)
@@ -147,7 +147,7 @@ class DiscountController extends Controller
             $dem = $list->count();   
 
             if($dem==0) {
-                DB::table('Discount')->where('idDiscount',$menu)->update(['percentDiscount'=>$request->percent, 'timeBeginDiscount'=>$request->begin, 'timeEndDiscount'=>$request->end]);
+                DB::table('Discount')->where('idDiscount',$menu)->update(['percentDiscount'=>$request->percent, 'timeBeginDiscount'=>$request->begin, 'timeEndDiscount'=>$request->end, 'idPlace'=>$request->place]);
                 return redirect('discount')->with(['flash_message20'=>'Update success.']);
             }
             else{
@@ -165,17 +165,11 @@ class DiscountController extends Controller
                         return redirect()->back()->withInput()->withErrors($errors);   
                     }
                     if($i==$dem-1){
-                        DB::table('Discount')->where('idDiscount',$menu)->update(['percentDiscount'=>$request->percent, 'timeBeginDiscount'=>$request->begin, 'timeEndDiscount'=>$request->end]);
+                        DB::table('Discount')->where('idDiscount',$menu)->update(['percentDiscount'=>$request->percent, 'timeBeginDiscount'=>$request->begin, 'timeEndDiscount'=>$request->end, 'idPlace'=>$request->place]);
                         return redirect('discount')->with(['flash_message20'=>'Update success.']);
                     }        
                } 
             }
-
-
-            ////////////////////////////
-
-         	// DB::table('Discount')->where('idDiscount',$menu)->update(['percentDiscount'=>$request->percent, 'timeBeginDiscount'=>$request->begin, 'timeEndDiscount'=>$request->end]);
-          //    return redirect('discount')->with(['flash_message20'=>'Update success.']);
          
      	}
         

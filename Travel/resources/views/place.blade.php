@@ -43,7 +43,7 @@
      <td>{{$item->address}}</td>
      <td><img class="img-rounded img-responsive" width="104" height="90" src="{{asset('upload/'.$item->img)}}"></td>
      <td>
-      <a href="{{url('CommentPlace/'.$item->idPlace)}}" class="btn btn-info"><i class="fa fa-comments"></i>Comment</a>
+      <a href="{{url('CommentPlace/'.$item->idPlace)}}" class="btn btn-info btn-block"><i class="fa fa-comments"></i>Comment</a>
      </td>
      <td>
       <a href="{{url('EditPlace/'.$item->idPlace)}}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
