@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2017 at 12:05 AM
--- Server version: 5.7.19-0ubuntu0.16.04.1
+-- Generation Time: Nov 18, 2017 at 10:14 AM
+-- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 7.1.10-1+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -31,22 +31,23 @@ CREATE TABLE `Account` (
   `nameAccount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `idProvince` int(10) UNSIGNED NOT NULL,
+  `idDistrict` int(10) UNSIGNED NOT NULL,
+  `idVillage` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `Account`
 --
 
-INSERT INTO `Account` (`idAccount`, `nameAccount`, `email`, `password`, `address`, `phone`, `img`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Lam', 'lam@gmail.com', '12345678', 'Nghệ An', '0123456789', '1508862298.png', NULL, NULL, NULL),
-(2, 'Phong', 'phong@gmail.com', '12345678', 'Quảng Bình', '0972681453', 'default.png', NULL, NULL, NULL),
-(3, 'Na', 'na@gmail.com', '12345678', 'Đà Nẵng', '0123456789', '1509468826.jpg', NULL, NULL, NULL);
+INSERT INTO `Account` (`idAccount`, `nameAccount`, `email`, `password`, `phone`, `img`, `description`, `created_at`, `updated_at`, `idProvince`, `idDistrict`, `idVillage`) VALUES
+(1, 'Lam', 'lam@gmail.com', '12345678', '0123456789', '1508862298.png', NULL, NULL, NULL, 1, 1, 1),
+(3, 'Na', 'na@gmail.com', '12345678', '0123456789', '1509468826.jpg', NULL, NULL, NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -59,6 +60,22 @@ CREATE TABLE `Authorize` (
   `idGroup` int(10) UNSIGNED NOT NULL,
   `idFunction` int(10) UNSIGNED NOT NULL,
   `isEnable` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Comment`
+--
+
+CREATE TABLE `Comment` (
+  `idComment` int(10) UNSIGNED NOT NULL,
+  `context` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `timeComment` datetime NOT NULL,
+  `idTypeService` int(10) UNSIGNED NOT NULL,
+  `idService` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -79,6 +96,44 @@ CREATE TABLE `Discount` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Discount`
+--
+
+INSERT INTO `Discount` (`idDiscount`, `idAccount`, `percentDiscount`, `timeBeginDiscount`, `timeEndDiscount`, `idPlace`, `created_at`, `updated_at`) VALUES
+(1, NULL, 10.00, '2017-11-03 23:07:00', '2017-11-15 23:07:00', 4, NULL, NULL),
+(2, NULL, 10.20, '2017-11-10 23:15:00', '2017-11-17 23:15:00', 6, NULL, NULL),
+(6, NULL, 20.00, '2017-11-18 01:45:00', '2017-11-22 01:45:00', 4, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `District`
+--
+
+CREATE TABLE `District` (
+  `idDistrict` int(10) UNSIGNED NOT NULL,
+  `idProvince` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `District`
+--
+
+INSERT INTO `District` (`idDistrict`, `idProvince`, `name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Long Xuyên', NULL, NULL),
+(2, 2, 'Hải Châu', NULL, NULL),
+(3, 2, 'Thanh Khê', NULL, NULL),
+(4, 2, 'Sơn Trà', NULL, NULL),
+(5, 2, 'Ngũ Hành Sơn', NULL, NULL),
+(6, 3, 'Hội An', NULL, NULL),
+(7, 3, 'Tam Kỳ', NULL, NULL),
+(8, 1, 'Tân Châu', NULL, NULL),
+(9, 1, 'An Phú', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -104,7 +159,8 @@ CREATE TABLE `Event` (
 --
 
 INSERT INTO `Event` (`idEvent`, `nameEvent`, `idPlace`, `timeBeginEvent`, `timeEndEvent`, `description`, `img`, `idAccount`, `created_at`, `updated_at`) VALUES
-(1, 'Picture exhibiting', 4, '2017-01-03 13:00:00', '2017-01-05 01:00:00', '<p>aa</p>', '1509544618.jpg', NULL, NULL, NULL);
+(1, 'Picture exhibiting', 4, '2017-01-03 13:00:00', '2017-01-05 01:00:00', '<p>aa</p>', '1509544618.jpg', NULL, NULL, NULL),
+(2, 'Flower', 4, '2017-11-09 23:29:00', '2017-11-13 23:29:00', '<p>aaa</p>', '1510333577.jpg', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -130,7 +186,7 @@ CREATE TABLE `Festival` (
 --
 
 INSERT INTO `Festival` (`idFestival`, `nameFestival`, `idPlace`, `timeBeginFestival`, `timeEndFestival`, `Description`, `img`, `idAccount`, `created_at`, `updated_at`) VALUES
-(1, 'Flower', 4, '2017-10-29 13:00:00', '2017-11-02 13:00:00', '<p>aaa</p>', '1509545551.jpg', NULL, NULL, NULL);
+(1, 'Flower', 4, '2017-10-11 13:00:00', '2017-11-09 13:00:00', '<p>aaa</p>', '1509545551.jpg', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -167,7 +223,9 @@ CREATE TABLE `Group` (
 
 INSERT INTO `Group` (`idGroup`, `nameGroup`, `note`, `created_at`, `updated_at`) VALUES
 (1, 'admin', '', NULL, NULL),
-(2, 'user', '', NULL, NULL);
+(2, 'user', '', NULL, NULL),
+(3, 'Mode', NULL, NULL, NULL),
+(4, 'Distributor', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -179,13 +237,12 @@ CREATE TABLE `listPlace` (
   `idlistPlace` int(10) UNSIGNED NOT NULL,
   `idSchedule` int(10) UNSIGNED NOT NULL,
   `idPlace` int(10) UNSIGNED NOT NULL,
-  `timeBeginTravel` datetime NOT NULL,
-  `timeEndTravel` datetime NOT NULL,
   `idEvent` int(10) UNSIGNED NOT NULL,
   `idFestival` int(10) UNSIGNED NOT NULL,
   `idDiscount` int(10) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `numDayTravel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -256,7 +313,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (125, '2017_10_19_154956_create_Schedule_table', 1),
 (126, '2017_10_19_155522_create_listSchedule_table', 1),
 (127, '2017_10_19_161933_create_Festival_table', 1),
-(128, '2017_10_19_162000_create_listPlace_table', 1);
+(128, '2017_10_19_162000_create_listPlace_table', 1),
+(129, '2017_11_11_043809_create_Province_table', 2),
+(131, '2017_11_11_044007_create_District_table', 3),
+(133, '2017_11_16_152117_modify_listPlace_table', 4),
+(134, '2017_11_18_022449_create_Village_table', 5),
+(135, '2017_11_18_025124_create_Comment_table', 6);
 
 -- --------------------------------------------------------
 
@@ -284,8 +346,29 @@ CREATE TABLE `Place` (
 
 INSERT INTO `Place` (`idPlace`, `namePlace`, `MoneyToTravel`, `address`, `img`, `idType`, `description`, `latlog`, `idAccount`, `created_at`, `updated_at`) VALUES
 (4, 'Ba Na Hill', 600000.00, 'thôn An Sơn, Hòa Ninh, Hòa Vang, Đà Nẵng', '1509272158.jpg', 1, '<p>aaa</p>', '3', NULL, NULL, NULL),
-(5, 't', 1.00, 'u', '1509272322.jpg', 1, '<p>j</p>', '5', NULL, NULL, NULL),
 (6, 'Asian Park', 500000.00, '1 Phan Đăng Lưu, Hòa Cường Bắc, Hải Châu, Đà Nẵng', '1509469710.jpg', 1, '<p>aaaaaaaa</p>', '123', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Province`
+--
+
+CREATE TABLE `Province` (
+  `idProvince` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Province`
+--
+
+INSERT INTO `Province` (`idProvince`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'An Giang', NULL, NULL),
+(2, 'Đà Nẵng', NULL, NULL),
+(3, 'Quảng Nam', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -302,6 +385,14 @@ CREATE TABLE `Rating` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `Rating`
+--
+
+INSERT INTO `Rating` (`idRating`, `rating`, `idTypeService`, `idService`, `created_at`, `updated_at`) VALUES
+(1, '100', 1, 4, NULL, NULL),
+(2, '150', 1, 6, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -314,10 +405,17 @@ CREATE TABLE `Schedule` (
   `money` double(8,2) NOT NULL,
   `timeBegin` datetime NOT NULL,
   `timeEnd` datetime NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Schedule`
+--
+
+INSERT INTO `Schedule` (`idSchedule`, `amountOfPeople`, `money`, `timeBegin`, `timeEnd`, `type`, `created_at`, `updated_at`) VALUES
+(1, 5.00, 200000.00, '2017-11-08 00:00:00', '2017-11-15 00:00:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -355,6 +453,35 @@ CREATE TABLE `typeService` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `typeService`
+--
+
+INSERT INTO `typeService` (`idTypeService`, `nameTypeService`, `created_at`, `updated_at`) VALUES
+(1, 'place', NULL, NULL),
+(2, 'event', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Village`
+--
+
+CREATE TABLE `Village` (
+  `idVillage` int(10) UNSIGNED NOT NULL,
+  `idDistrict` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `Village`
+--
+
+INSERT INTO `Village` (`idVillage`, `idDistrict`, `name`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Mỹ Phước', NULL, NULL);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -362,7 +489,10 @@ CREATE TABLE `typeService` (
 -- Indexes for table `Account`
 --
 ALTER TABLE `Account`
-  ADD PRIMARY KEY (`idAccount`);
+  ADD PRIMARY KEY (`idAccount`),
+  ADD KEY `idProvince` (`idProvince`),
+  ADD KEY `idDistrict` (`idDistrict`),
+  ADD KEY `idVillage` (`idVillage`);
 
 --
 -- Indexes for table `Authorize`
@@ -373,12 +503,26 @@ ALTER TABLE `Authorize`
   ADD KEY `authorize_idfunction_foreign` (`idFunction`);
 
 --
+-- Indexes for table `Comment`
+--
+ALTER TABLE `Comment`
+  ADD PRIMARY KEY (`idComment`),
+  ADD KEY `comment_idtypeservice_foreign` (`idTypeService`);
+
+--
 -- Indexes for table `Discount`
 --
 ALTER TABLE `Discount`
   ADD PRIMARY KEY (`idDiscount`),
   ADD KEY `discount_idaccount_foreign` (`idAccount`),
   ADD KEY `discount_idplace_foreign` (`idPlace`);
+
+--
+-- Indexes for table `District`
+--
+ALTER TABLE `District`
+  ADD PRIMARY KEY (`idDistrict`),
+  ADD KEY `district_idprovince_foreign` (`idProvince`);
 
 --
 -- Indexes for table `Event`
@@ -450,6 +594,12 @@ ALTER TABLE `Place`
   ADD KEY `place_idtype_foreign` (`idType`);
 
 --
+-- Indexes for table `Province`
+--
+ALTER TABLE `Province`
+  ADD PRIMARY KEY (`idProvince`);
+
+--
 -- Indexes for table `Rating`
 --
 ALTER TABLE `Rating`
@@ -475,6 +625,13 @@ ALTER TABLE `typeService`
   ADD PRIMARY KEY (`idTypeService`);
 
 --
+-- Indexes for table `Village`
+--
+ALTER TABLE `Village`
+  ADD PRIMARY KEY (`idVillage`),
+  ADD KEY `village_iddistrict_foreign` (`idDistrict`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -482,27 +639,37 @@ ALTER TABLE `typeService`
 -- AUTO_INCREMENT for table `Account`
 --
 ALTER TABLE `Account`
-  MODIFY `idAccount` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idAccount` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `Authorize`
 --
 ALTER TABLE `Authorize`
   MODIFY `idAuthorize` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `Comment`
+--
+ALTER TABLE `Comment`
+  MODIFY `idComment` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `Discount`
 --
 ALTER TABLE `Discount`
-  MODIFY `idDiscount` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idDiscount` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `District`
+--
+ALTER TABLE `District`
+  MODIFY `idDistrict` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `Event`
 --
 ALTER TABLE `Event`
-  MODIFY `idEvent` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idEvent` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Festival`
 --
 ALTER TABLE `Festival`
-  MODIFY `idFestival` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idFestival` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `Function`
 --
@@ -512,7 +679,7 @@ ALTER TABLE `Function`
 -- AUTO_INCREMENT for table `Group`
 --
 ALTER TABLE `Group`
-  MODIFY `idGroup` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idGroup` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `listPlace`
 --
@@ -527,27 +694,32 @@ ALTER TABLE `listSchedule`
 -- AUTO_INCREMENT for table `MemberGroup`
 --
 ALTER TABLE `MemberGroup`
-  MODIFY `idMember` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idMember` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 --
 -- AUTO_INCREMENT for table `Place`
 --
 ALTER TABLE `Place`
-  MODIFY `idPlace` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idPlace` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `Province`
+--
+ALTER TABLE `Province`
+  MODIFY `idProvince` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `Rating`
 --
 ALTER TABLE `Rating`
-  MODIFY `idRating` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idRating` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Schedule`
 --
 ALTER TABLE `Schedule`
-  MODIFY `idSchedule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idSchedule` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `typePlace`
 --
@@ -557,10 +729,23 @@ ALTER TABLE `typePlace`
 -- AUTO_INCREMENT for table `typeService`
 --
 ALTER TABLE `typeService`
-  MODIFY `idTypeService` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idTypeService` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `Village`
+--
+ALTER TABLE `Village`
+  MODIFY `idVillage` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `Account`
+--
+ALTER TABLE `Account`
+  ADD CONSTRAINT `Account_ibfk_1` FOREIGN KEY (`idProvince`) REFERENCES `Province` (`idProvince`),
+  ADD CONSTRAINT `Account_ibfk_2` FOREIGN KEY (`idDistrict`) REFERENCES `District` (`idDistrict`),
+  ADD CONSTRAINT `Account_ibfk_3` FOREIGN KEY (`idVillage`) REFERENCES `Village` (`idVillage`);
 
 --
 -- Constraints for table `Authorize`
@@ -570,11 +755,23 @@ ALTER TABLE `Authorize`
   ADD CONSTRAINT `authorize_idgroup_foreign` FOREIGN KEY (`idGroup`) REFERENCES `Group` (`idGroup`);
 
 --
+-- Constraints for table `Comment`
+--
+ALTER TABLE `Comment`
+  ADD CONSTRAINT `comment_idtypeservice_foreign` FOREIGN KEY (`idTypeService`) REFERENCES `typeService` (`idTypeService`);
+
+--
 -- Constraints for table `Discount`
 --
 ALTER TABLE `Discount`
   ADD CONSTRAINT `discount_idaccount_foreign` FOREIGN KEY (`idAccount`) REFERENCES `Account` (`idAccount`),
   ADD CONSTRAINT `discount_idplace_foreign` FOREIGN KEY (`idPlace`) REFERENCES `Place` (`idPlace`);
+
+--
+-- Constraints for table `District`
+--
+ALTER TABLE `District`
+  ADD CONSTRAINT `district_idprovince_foreign` FOREIGN KEY (`idProvince`) REFERENCES `Province` (`idProvince`);
 
 --
 -- Constraints for table `Event`
@@ -626,6 +823,12 @@ ALTER TABLE `Place`
 --
 ALTER TABLE `Rating`
   ADD CONSTRAINT `rating_idtypeservice_foreign` FOREIGN KEY (`idTypeService`) REFERENCES `typeService` (`idTypeService`);
+
+--
+-- Constraints for table `Village`
+--
+ALTER TABLE `Village`
+  ADD CONSTRAINT `village_iddistrict_foreign` FOREIGN KEY (`idDistrict`) REFERENCES `District` (`idDistrict`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
