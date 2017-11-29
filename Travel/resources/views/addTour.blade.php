@@ -18,16 +18,6 @@
     @endif
 
     <div class="form-group">
-      <label class="control-label col-sm-2">Money</label>
-      <input type="text" class="form-control" required="" minlength="4" maxlength="10" id="formGroupExampleInput" name="money">
-    </div>
-    @if($errors->has('money'))
-      <div style="padding-left: 150px;">
-      <p style="color:red">{{ $errors->first('money') }}</p>
-      </div>
-    @endif
-
-    <div class="form-group">
       <label class="control-label col-sm-2">Time begin:</label>
       <input type="" required="" class=" form-control datetime" readonly="" name="begin">  
     </div>
@@ -51,11 +41,20 @@
           <p style="color:red">{{ $errors->first('errortime') }}</p>
         </div>
     @endif
+
+    <div class="form-group">
+      <label class="control-label col-sm-2">Type:</label>
+        <select class="input-large form-control" name="type" id="selectType">
+          @foreach( $type as $value)
+          <option value="{{$value->idType}}">{{$value->nameType}}</option>
+          @endforeach
+        </select>
+    </div>
     
-    <div class="place-event">
+    <div class="place">
       <p>
           <label class="control-label col-sm-2">Place:</label>
-          <select class="ex-multiselect" name="place[]" multiple>
+          <select class="ex-multiselect" name="place[]" multiple id="selectPlace">
             @foreach( $place as $value)
               <option value="{{$value->idPlace}}">{{$value->namePlace}}</option>
             @endforeach
@@ -75,5 +74,6 @@
 <script src="{{ asset('js/picker.min.js') }}"></script>
 <script type="text/javascript">
   $('.ex-multiselect').picker();
+
 </script>
 @stop

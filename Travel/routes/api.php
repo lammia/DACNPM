@@ -22,5 +22,6 @@ Route::post('/login', 'ApiController@login');
 Route::get('/get-districts', 'AccountController@getDistrictByProvinceId');
 Route::get('/get-villages', 'AccountController@getVillageByDistrictId');
 Route::get('/get-events', 'TourController@getEventByPlaceId');
+Route::get('/get-places', 'TourController@getPlaceByTypeId');
 Route::get('/events', 'ApiController@getEvents');
 Route::get('/places', 'ApiController@getPlaces');

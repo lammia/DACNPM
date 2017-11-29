@@ -63,3 +63,25 @@ $('#selectPlace').on("change", function(e){
 	   	type: 'GET'
 	});
 })
+
+$('#selectType').on("change", function(e){
+  let val = $(this).find("option:selected").val();
+  $.ajax({
+      url: '/api/get-places',
+      data: {
+        format: 'json',
+        type: val,
+      },
+      success: function(data) {
+        console.log(data)
+        $(".pc-list ul").empty();
+        data.map(item => {
+          $("#selectPlace").append(`<option value=${item.idPlace}>${item.namePlace}</option>`);
+          $(".pc-list ul").append(`<option data-id=${item.idPlace}  data-order="0">${item.namePlace}</option>`);
+
+        });
+
+      },
+      type: 'GET'
+  });
+})
