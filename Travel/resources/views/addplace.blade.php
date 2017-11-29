@@ -32,7 +32,7 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Adress:</label>
-      <input type="text" id="address" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="address" onblur="codeAddress();">
+      <input type="text" id="address" class="form-control" required="" maxlength="100" id="formGroupExampleInput" name="address" >
     </div>
     @if($errors->has('address'))
       <div>

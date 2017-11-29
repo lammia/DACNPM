@@ -40,7 +40,7 @@
 
                   <div class="form-group">
                     <label class="control-label col-sm-2">Content:</label>
-                    <input type="text" class="form-control" required="" maxlength="100" name="content">
+                    <textarea class="form-control" required="" maxlength="100" name="content"></textarea>
                   </div>
 
                   <div class="modal-footer">
@@ -102,7 +102,7 @@
 
                   <div class="form-group">
                     <label class="control-label col-sm-2">Content:</label>
-                    <input type="text" class="form-control" required="" maxlength="100" name="content" value="{{$item->content}}">
+                    <textarea class="form-control" required="" maxlength="100" name="content" value="{{$item->content}}"></textarea>
                   </div>
 
                   <div class="modal-footer">

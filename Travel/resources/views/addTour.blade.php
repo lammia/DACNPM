@@ -5,7 +5,7 @@
   
   <h3 style="color: #5a738e" align="center"> ADD TOUR</h3><br>
   <form  action="/newtour" method="POST" name="formplace" style="margin-left: 150px" enctype="multipart/form-data"> 
-  <input type="hidden" name="_token"  value="{!!csrf_token()!!}">
+  <input type="hidden" name="_token" value="{!!csrf_token()!!}">
 
     <div class="form-group">
       <label class="control-label col-sm-2">People</label>
@@ -54,23 +54,12 @@
     
     <div class="place-event">
       <p>
-        
           <label class="control-label col-sm-2">Place:</label>
-          <select name="place" class="input-large form-control select" id="selectPlace">
-            @foreach($place as $value)
-              <option id="option" value="{{$value->idPlace}}">{{$value->namePlace}}</option>
-              @endforeach
-          </select>
-          <br>
-        
-          <label class="control-label col-sm-2">Event:</label>
-          <select class="ex-multiselect" name="event[]" id="selectEvent" multiple>
-            @foreach( $event as $value)
-              <option value="{{$value->idEvent}}">{{$value->nameEvent}}</option>
+          <select class="ex-multiselect" name="place[]" multiple>
+            @foreach( $place as $value)
+              <option value="{{$value->idPlace}}">{{$value->namePlace}}</option>
             @endforeach
           </select><br>
-        
-        <button type="button" class="btn btn-link btn-sm add">Add</button>
       </p>
     </div>
 
@@ -87,5 +76,4 @@
 <script type="text/javascript">
   $('.ex-multiselect').picker();
 </script>
-<script src="{{ asset('js/clone.js')}}"></script>
-  @stop
+@stop

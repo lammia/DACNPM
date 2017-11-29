@@ -29,4 +29,8 @@ class Place extends Model
     {
         return $this->belongsTo(Rating::class, 'idPlace', 'idService');
     }
+    public function listplace()
+    {
+        return $this->hasMany(listPlace::class, 'idlistPlace');
+    }
 }

@@ -35,17 +35,21 @@
     <tbody>
     @foreach($tour as $item)
     <tr>
-     <td>{{$item->idSchedule}}</td>
+     <td>{{$item->id}}</td>
      <td>{{$item->amountOfPeople}}</td>
-     <td></td>
+     <td>
+      <!-- @foreach($tour as $t)
+        {{$t->listPlace}}
+      @endforeach -->
+     </td>
      <td>{{$item->money}}</td>
      <td>{{$item->timeBegin}}</td>
      <td>{{$item->timeEnd}}</td>
      <td>
-      <a href="" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
-      <a href="" class ="btn btn-danger" 
-          onclick="return confirmAction()" ><i class="fa fa-trash-o"></i> Delete
-      </a>
+      <a href="{{ url('/edit-tour/'.$item->id) }}" class="btn btn-success"><i class="fa fa-edit"></i> Edit</a>
+      <a href="{{ url('/delete-tour/'.$item->id) }}" class ="btn btn-danger" 
+            onclick="return confirmAction()" ><i class="fa fa-trash-o"></i> Delete
+        </a> 
      </td>
      </tr>
     @endforeach

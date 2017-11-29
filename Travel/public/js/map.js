@@ -1,6 +1,7 @@
 var geocoder;
 var map;
 var infowindow;
+var markers = [];
 
 function initialize() {
   geocoder = new google.maps.Geocoder();
@@ -13,13 +14,31 @@ function initialize() {
     zoom: 12
   });
 
-  google.maps.event.addListener(map, 'click', function(event){
-  	document.getElementById("latlog").value = event.latLng;
-  	geocodePosition(event.latLng);
-  	addMarker(event.latLng);
+  $('#address').on("blur", function(e){
+    clearMarkers();
+  	codeAddress();
   	
   });
 
+  google.maps.event.addListener(map, 'click', function(event){
+    document.getElementById("latlog").value = event.latLng;
+    geocodePosition(event.latLng);
+    clearMarkers();
+    addMarker(event.latLng);
+    
+  });
+
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+      }
+
+function clearMarkers() {
+  setMapOnAll(null);
+  markers = [];
 }
 
 function addMarker(location) {
@@ -47,28 +66,6 @@ function updateMarkerAddress(str) {
 }
 
 
-function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
-    }
-  }
-}
-
-function createMarker(place) {
-  var placeLoc = place.geometry.location;
-  var marker = new google.maps.Marker({
-    map: map,
-    position: place.geometry.location
-  });
-
-  google.maps.event.addListener(marker, 'mouseover', function() {
-    infowindow.setContent(place.name);
-    infowindow.open(map, this);
-
-  });
-}
-
 function codeAddress() {
   var address = document.getElementById("address").value;
   geocoder.geocode({
@@ -81,6 +78,7 @@ function codeAddress() {
         title: name,
         position: results[0].geometry.location
       });
+      markers.push(marker);
       var request = {
         location: results[0].geometry.location,
         radius: 50000,
@@ -90,7 +88,6 @@ function codeAddress() {
       };
       infowindow = new google.maps.InfoWindow();
       var service = new google.maps.places.PlacesService(map);
-      // service.nearbySearch(request, callback);
       
       google.maps.event.addListener(marker, 'mouseover', function() {
 	    infowindow.setContent(results[0].geometry.location);

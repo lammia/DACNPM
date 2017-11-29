@@ -34,7 +34,7 @@
 
     <div class="form-group">
       <label class="control-label col-sm-2">Adress:</label>
-      <input type="text" class="form-control" required="" maxlength="100" id="address" name="address" value="{{$place->address}}" onblur="codeAddress();">
+      <input type="text" class="form-control" required="" maxlength="100" id="address" name="address" value="{{$place->address}}">
     </div>  
 
     <div class="form-group">
