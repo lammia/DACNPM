@@ -9,11 +9,11 @@ class Schedule extends Model
 	public $table = "Schedule";
   public $incrementing = true;
   protected $fillable = [
-      'amountOfPeople', 'money', 'timeBegin', 'timeEnd', 'type'
+      'idSchedule', 'idlistPlace', 'amountOfPeople', 'money', 'timeBegin', 'timeEnd', 'type'
   ];
-  public function listplace()
+  public function listplaces()
   {
-      return $this->hasMany(listPlace::class, 'idlistPlace');
+      return $this->hasMany(listPlace::class, 'idlistPlace', 'idlistPlace');
   }
 
 }

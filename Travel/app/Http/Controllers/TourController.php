@@ -8,6 +8,7 @@ use App\Place;
 use App\Schedule;
 use App\listPlace;
 use App\typePlace;
+use App\Discount;
 use Illuminate\Support\MessageBag;
 use DB;
 use Session;
@@ -18,6 +19,15 @@ class TourController extends Controller
     public function index()
     {
         $tour = Schedule::all();
+        // $listplace = array();
+
+        // for($i=0; $i < count($tour); $i++){
+        //     $place = listPlace::where('idSchedule', $tour[$i]->idSchedule)
+        //             ->get()->toArray();
+        //     array_push($listplace, $place);
+        // }
+
+        //return view("tour", compact('tour', 'listplace'));
         return view("tour", compact('tour'));
 
     }
@@ -70,6 +80,7 @@ class TourController extends Controller
             $places = Place::where('idPlace', $request->place[$i])
                         ->select('MoneyToTravel')
                         ->get()->toArray();
+                  
             $money += $places[0]['MoneyToTravel'];
         }
 

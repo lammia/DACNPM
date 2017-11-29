@@ -73,13 +73,12 @@ $('#selectType').on("change", function(e){
         type: val,
       },
       success: function(data) {
-        console.log(data)
+        $("#selectPlace").empty();
         $(".pc-list ul").empty();
         data.map(item => {
           $("#selectPlace").append(`<option value=${item.idPlace}>${item.namePlace}</option>`);
-          $(".pc-list ul").append(`<option data-id=${item.idPlace}  data-order="0">${item.namePlace}</option>`);
-
-        });
+          $(".pc-list ul").append(`<li data-id=${item.idPlace} data-order="0">${item.namePlace}</li>`);
+      	});
 
       },
       type: 'GET'
