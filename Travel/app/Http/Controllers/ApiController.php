@@ -49,8 +49,8 @@ class ApiController extends Controller
 
   public function getTours(request $request)
   {
-    $data = Schedule::with(['listplace', 'types'])->get();
-    return \Response::json($data);
+    $data = Schedule::with(['listPlaces', 'types'])->get();
+    return \Response::json(["listTour" => $data]);
   }
 }
 

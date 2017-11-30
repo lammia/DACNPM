@@ -38,7 +38,9 @@
      <td>{{$item->idSchedule}}</td>
      <td>{{$item->amountOfPeople}}</td>
      <td> 
-
+        @foreach( $item->listPlaces as $place)
+          <p>{{$place->namePlace}}</p>
+        @endforeach
      </td>
      <td>{{$item->money}}</td>
      <td>{{$item->timeBegin}}</td>

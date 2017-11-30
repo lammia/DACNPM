@@ -18,16 +18,11 @@ class TourController extends Controller
 {
     public function index()
     {
-        $tour = Schedule::all();
-        // $listplace = array();
+        // $tour = Schedule::with('listPlaces')->get();
+        $tour = Schedule::with(['listPlaces' => function ($query) {
+            $query->join('Place', 'Place.idPlace', '=', 'listPlace.idPlace');
+        }])->get();
 
-        // for($i=0; $i < count($tour); $i++){
-        //     $place = listPlace::where('idSchedule', $tour[$i]->idSchedule)
-        //             ->get()->toArray();
-        //     array_push($listplace, $place);
-        // }
-
-        //return view("tour", compact('tour', 'listplace'));
         return view("tour", compact('tour'));
 
     }

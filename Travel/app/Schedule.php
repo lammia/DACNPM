@@ -11,7 +11,7 @@ class Schedule extends Model
   protected $fillable = [
       'amountOfPeople', 'money', 'timeBegin', 'timeEnd', 'type'
   ];
-  public function listplace()
+  public function listPlaces()
   {
       return $this->hasMany(listPlace::class, 'idSchedule');
   }
