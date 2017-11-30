@@ -26,7 +26,7 @@ use Validator;
 class ApiController extends Controller
 {
   public function login(request $request) {
-    $acc = Account::where('email', $request->email)->first();
+    $acc = Account::with(["provinces", "districts", "villages"])->where('email', $request->email)->first();
     if ($acc->password === $request->password) {
       return \Response::json($acc);
     }
@@ -49,7 +49,7 @@ class ApiController extends Controller
 
   public function getTours(request $request)
   {
-    $data = Schedule::with('listplace')->get();
+    $data = Schedule::with(['listplace', 'types'])->get();
     return \Response::json($data);
   }
 }

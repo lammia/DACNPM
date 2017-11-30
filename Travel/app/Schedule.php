@@ -15,5 +15,9 @@ class Schedule extends Model
   {
       return $this->hasMany(listPlace::class, 'idSchedule');
   }
+  public function types()
+  {
+      return $this->belongsTo(typePlace::class, 'type', 'idType');
+  }
 
 }

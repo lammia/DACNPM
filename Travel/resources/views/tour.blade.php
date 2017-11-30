@@ -35,12 +35,10 @@
     <tbody>
     @foreach($tour as $item)
     <tr>
-     <td>{{$item->id}}</td>
+     <td>{{$item->idSchedule}}</td>
      <td>{{$item->amountOfPeople}}</td>
-     <td>
-      <!-- @foreach($tour as $t)
-        {{$t->listPlace}}
-      @endforeach -->
+     <td> 
+
      </td>
      <td>{{$item->money}}</td>
      <td>{{$item->timeBegin}}</td>

@@ -63,3 +63,24 @@ $('#selectPlace').on("change", function(e){
 	   	type: 'GET'
 	});
 })
+
+// $('#selectType').on("change", function(e){
+//   let val = $(this).find("option:selected").val();
+//   $.ajax({
+//       url: '/api/get-places',
+//       data: {
+//         format: 'json',
+//         type: val,
+//       },
+//       success: function(data) {
+//         $("#selectPlace").empty();
+//         $(".pc-list ul").empty();
+//         data.map((item, index) => {
+//           $("#selectPlace").append(`<option value=${item.idPlace}>${item.namePlace}</option>`);
+//           $(".pc-list ul").append(`<li data-id=${item.idPlace} data-order=${index}>${item.namePlace}</li>`);
+//       	});
+
+//       },
+//       type: 'GET'
+//   });
+// })
