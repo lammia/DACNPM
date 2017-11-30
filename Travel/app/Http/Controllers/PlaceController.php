@@ -71,6 +71,13 @@ class PlaceController extends Controller
             return redirect()->back()->with(['flash_message02'=>'Update success.']);
     }
 
+    public static function getPlace()
+    {
+      $data = Place::get();
+
+      return \Response::json($data);
+    }
+
     public function insert (request $request)
     {
         $rules = [
@@ -189,5 +196,284 @@ class PlaceController extends Controller
     {
         DB::table('Comment')->where('idComment',$menu)->delete();
         return redirect()->back();
+    }
+
+    public static function getPlaces()
+    {
+      $data = [
+        "listPlaces" => [
+          [
+            "id" => "4",
+            "idEvent" => "1",
+            "name" => "Bà Nà Núi Chúa",
+            "money" => "3000000",
+            "salePrice" => "2500000",
+            "maxPeople" => 300,
+            "address" => "An Sơn, Hòa Ninh, Hòa Vang, Đà Nẵng",
+            "type" => "DayTrip",
+            "description" => "Sau Cách mạng tháng Tám năm 1945, Bà Nà dần vắng bóng người. Khi Pháp quay trở lại xâm lược Việt Nam lần thứ 2, nhân dân địa phương thực hiện chủ trương tiêu thổ kháng chiến nên đã triệt hạ các công trình xây dựng ở Bà Nà. Từ đấy, khu nghỉ mát hoang phế dần và bị cây rừng che phủ trong quên lãng gần nửa thế kỷ. Đầu năm 1997, UBND thành phố Đà Nẵng quyết định xây dựng lại Bà Nà thành một khu du lịch sinh thái có quy mô lớn với hệ thống nhà nghỉ, nhà hàng, khu bảo tồn... Con đường từ chân núi lên đỉnh Bà Nà dài 15 km đã được rải nhựa, thuận tiện cho giao thông. Sau năm 2000, Bà Nà đã được đánh thức và tái tạo vị thế một thị trấn du lịch và nhanh chóng trở lại ngôi vị của một trong những khu du lịch nổi tiếng nhất của thành phố Đà Nẵng.",
+            "latLng" => "16.0004126,107.9867858",
+            "rate" => [
+              "id" => "r0",
+              "countRate" => "50",
+              "countComment" => "20",
+              "listUser" => [
+                [
+                  "id" => "id00001",
+                  "name" => "Vien",
+                  "email" => "viennguyen@gmail.com",
+                  "username" => "viennguyen"
+                ],
+                [
+                  "id" => "id00003",
+                  "name" => "Dinh",
+                  "email" => "longngao@gmail.com",
+                  "username" => "longngao"
+                ],
+                [
+                  "id" => "id00004",
+                  "name" => "Lam",
+                  "email" => "lampham@gmail.com",
+                  "username" => "lampham"
+                ]
+              ]
+            ],
+            "imagesHorizontal" => [
+              "bana1.png",
+              "bana2.png",
+              "bana3.png",
+            ],
+            "imagesVertical" => [
+              "bana0.png",
+            ],
+          ],
+          [
+            "id" => "6",
+            "idEvent" => "2",
+            "name" => "Chùa Linh Ứng",
+            "money" => "3000000",
+            "salePrice" => "2500000",
+            "maxPeople" => 300,
+            "address" => "An Sơn, Hòa Ninh, Hòa Vang, Đà Nẵng",
+            "type" => "DayTrip",
+            "description" => "Chùa Linh Ứng – Bãi Bụt, Sơn Trà- Đà Nẵng là một trong ba ngôi chùa cùng mang tên Linh Ứng ở Đà Nẵng. Không rõ là do vô tình hay do chữ duyên mà cả ba ngôi chùa đều được tọa lạc trên những vị thế đắc địa của thành phố Đà Nẵng, tạo thành một tam giác linh thiêng trong thành phố. Đó là chùa Linh Ứng Non Nước, nằm trên hòn Thủy sơn của một trong 5 ngọn núi Ngũ Hành Sơn. Chùa Linh Ứng Bà Nà, nằm trên chót vót núi cao của địa danh nghỉ mát Đà Lạt của miền Trung và Linh ứng Bãi Bụt, Sơn Trà, nằm lưng chừng núi – bán đảo Sơn Trà. Linh Ứng Tự Bãi Bụt là ngôi chùa to nhất, mới nhất và đẹp nhất trong 3 ngôi chùa.",
+            "latLng" => "16.100088, 108.278101",
+            "rate" => [
+              "id" => "r1",
+              "countRate" => "150",
+              "countComment" => "30",
+              "listUser" => [
+                [
+                  "id" => "id00001",
+                  "name" => "Vien",
+                  "email" => "viennguyen@gmail.com",
+                  "username" => "viennguyen"
+                ],
+                [
+                  "id" => "id00003",
+                  "name" => "Dinh",
+                  "email" => "longngao@gmail.com",
+                  "username" => "longngao"
+                ],
+                [
+                  "id" => "id00004",
+                  "name" => "Lam",
+                  "email" => "lampham@gmail.com",
+                  "username" => "lampham"
+                ]
+              ]
+            ],
+            "imagesHorizontal" => [
+              "linhung1.png",
+              "linhung2.png",
+              "linhung3.png",
+            ],
+            "imagesVertical" => [
+              "linhung0.png",
+            ],
+          ],
+          [
+            "id" => "7",
+            "idEvent" => "3",
+            "name" => "Công viên châu Á Đà Nẵng",
+            "money" => "300000",
+            "salePrice" => "200000",
+            "maxPeople" => 300,
+            "address" => "An Sơn, Hòa Ninh, Hòa Vang, Đà Nẵng",
+            "type" => "DayTrip",
+            "description" => "Công viên vui chơi giải trí hàng đầu Đông Nam Á mang đẳng cấp quốc tế, Asia Park tại Đà Nẵng đã hoàn thành xong một vài hạng mục công trình để đưa vào hoạt động trong năm 2015 bên cạnh Sun Wheel, vòng quay top 10 thế giới đã mở cửa trước đó. Công viên Châu Á - Asian Park, tên đầy đủ là Khu Công viên Văn hóa và Vui chơi giải trí Đông Nam Đài Tưởng niệm, với quy mô đầu tư “khủng” lên đến 4.000 tỉ đồng, là khu vui chơi giải trí mang đẳng cấp quốc tế tại Đông Nam Á. Dù chưa hoàn thành hết tất cả các hạng mục nhưng trong năm 2015, dự kiến một số trò chơi mới nhất vừa hoàn thành sẽ được đưa vào hoạt động.",
+            "latLng" => "16.039493, 108.228492",
+            "rate" => [
+              "id" => "r3",
+              "countRate" => "50",
+              "countComment" => "20",
+              "listUser" => [
+                [
+                  "id" => "id00001",
+                  "name" => "Vien",
+                  "email" => "viennguyen@gmail.com",
+                  "username" => "viennguyen"
+                ],
+                [
+                  "id" => "id00003",
+                  "name" => "Dinh",
+                  "email" => "longngao@gmail.com",
+                  "username" => "longngao"
+                ],
+                [
+                  "id" => "id00004",
+                  "name" => "Lam",
+                  "email" => "lampham@gmail.com",
+                  "username" => "lampham"
+                ]
+              ]
+            ],
+            "imagesHorizontal" => [
+              "asianpark1.png",
+              "asianpark2.png",
+              "asianpark3.png",
+            ],
+            "imagesVertical" => [
+              "asianpark0.png",
+            ],
+          ],
+          [
+            "id" => "8",
+            "idEvent" => "4",
+            "name" => "Đèo Hải Vân",
+            "money" => "0",
+            "salePrice" => "0",
+            "maxPeople" => 500,
+            "address" => "An Sơn, Hòa Ninh, Hòa Vang, Đà Nẵng",
+            "type" => "DayTrip",
+            "description" => "Đèo Hải Vân còn có tên là đèo Ải Vân (vì trên đỉnh đèo xưa kia có một cửa ải) hay đèo Mây (vì đỉnh đèo thường có mây che phủ), cao 500 m (so với mực nước biển), dài 20 km, cắt ngang dãy núi Bạch Mã (là một phần của dãy Trường Sơn chạy cắt ra sát biển) ở giữa ranh giới tỉnh Thừa Thiên-Huế (ở phía Bắc) và thành phố Đà Nẵng (ở phía Nam), Việt Nam",
+            "latLng" => "16.200577, 108.133333",
+            "rate" => [
+              "id" => "r4",
+              "countRate" => "50",
+              "countComment" => "20",
+              "listUser" => [
+                [
+                  "id" => "id00001",
+                  "name" => "Vien",
+                  "email" => "viennguyen@gmail.com",
+                  "username" => "viennguyen"
+                ],
+                [
+                  "id" => "id00003",
+                  "name" => "Dinh",
+                  "email" => "longngao@gmail.com",
+                  "username" => "longngao"
+                ],
+                [
+                  "id" => "id00004",
+                  "name" => "Lam",
+                  "email" => "lampham@gmail.com",
+                  "username" => "lampham"
+                ]
+              ]
+            ],
+            "imagesHorizontal" => [
+              "deohaivan1.png",
+              "deohaivan2.png",
+              "deohaivan3.png",
+            ],
+            "imagesVertical" => [
+              "deohaivan0.png",
+            ],
+          ],
+          [
+            "id" => "9",
+            "idEvent" => "5",
+            "name" => "Ngũ Hành Sơn",
+            "money" => "100000",
+            "salePrice" => "50000",
+            "maxPeople" => 100,
+            "address" => "An Sơn, Hòa Ninh, Hòa Vang, Đà Nẵng",
+            "type" => "DayTrip",
+            "description" => "Ngũ Hành Sơn hay núi Non Nước là tên chung của một danh thắng gồm 5 ngọn núi đá vôi nhô lên trên một bãi cát ven biển, trên một diện tích khoảng 2 km2, gồm: Kim Sơn, Mộc Sơn, Thủy Sơn (lớn, cao và đẹp nhất), Hỏa Sơn (có hai ngọn) và Thổ Sơn, nằm cách trung tâm thành phố Đà Nẵng khoảng 8 km về phía Đông Nam, ngay trên tuyến đường Đà Nẵng - Hội An; nay thuộc phường Hòa Hải, quận Ngũ Hành Sơn, thành phố Đà Nẵng, Việt Nam.",
+            "latLng" => "16.004221, 108.262865",
+            "rate" => [
+              "id" => "r0",
+              "countRate" => "50",
+              "countComment" => "20",
+              "listUser" => [
+                [
+                  "id" => "id00001",
+                  "name" => "Vien",
+                  "email" => "viennguyen@gmail.com",
+                  "username" => "viennguyen"
+                ],
+                [
+                  "id" => "id00003",
+                  "name" => "Dinh",
+                  "email" => "longngao@gmail.com",
+                  "username" => "longngao"
+                ],
+                [
+                  "id" => "id00004",
+                  "name" => "Lam",
+                  "email" => "lampham@gmail.com",
+                  "username" => "lampham"
+                ]
+              ]
+            ],
+            "imagesHorizontal" => [
+              "nguhanhson1.png",
+              "nguhanhson2.png",
+              "nguhanhson3.png",
+            ],
+            "imagesVertical" => [
+              "nguhanhson0.png",
+            ],
+          ],
+          [
+            "id" => "10",
+            "idEvent" => "6",
+            "name" => "CÔNG VIÊN SUỐI KHOÁNG NÓNG NÚI THẦN TÀI",
+            "money" => "300000",
+            "salePrice" => "250000",
+            "maxPeople" => 300,
+            "address" => "thôn Phú Túc, xã Hòa Phú, huyện Hòa Vang, thành phố Đà Nẵng",
+            "type" => "DayTrip",
+            "description" => "Nằm tại khu bảo tồn thiên nhiên Bà Nà Núi Chúa, thôn Phú Túc, xã Hòa Phú, huyện Hòa Vang, thành phố Đà Nẵng, Công viên suối khoáng nóng Núi Thần Tài có thể nói là một tuyệt tác mà thiên nhiên ban tặng cho thủ phủ của miền Trung Việt Nam, trải dài trên một diện tích hơn 60 hectare. Giữa thành phố biển nhưng nơi đây lại mang một khí hậu đặc trưng của Bà Nà với 4 mùa trong ngày.",
+            "latLng" => "15.967993, 108.019863",
+            "rate" => [
+              "id" => "r0",
+              "countRate" => "50",
+              "countComment" => "20",
+              "listUser" => [
+                [
+                  "id" => "id00001",
+                  "name" => "Vien",
+                  "email" => "viennguyen@gmail.com",
+                  "username" => "viennguyen"
+                ],
+                [
+                  "id" => "id00003",
+                  "name" => "Dinh",
+                  "email" => "longngao@gmail.com",
+                  "username" => "longngao"
+                ],
+                [
+                  "id" => "id00004",
+                  "name" => "Lam",
+                  "email" => "lampham@gmail.com",
+                  "username" => "lampham"
+                ]
+              ]
+            ],
+            "imagesHorizontal" => [
+              "nuithantai1.png",
+              "nuithantai2.png",
+              "nuithantai3.png",
+            ],
+            "imagesVertical" => [
+              "nuithantai0.png",
+            ],
+          ],
+        ],
+      ];
+      return $data;
     }
 }

@@ -13,7 +13,7 @@ class Schedule extends Model
   ];
   public function listplace()
   {
-      return $this->hasMany(listPlace::class, 'idlistPlace');
+      return $this->hasMany(listPlace::class, 'idSchedule');
   }
 
 }

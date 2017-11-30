@@ -24,3 +24,4 @@ Route::get('/get-villages', 'AccountController@getVillageByDistrictId');
 Route::get('/get-events', 'TourController@getEventByPlaceId');
 Route::get('/events', 'ApiController@getEvents');
 Route::get('/places', 'ApiController@getPlaces');
+Route::get('/tour', 'ApiController@getTours');

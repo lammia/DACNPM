@@ -71,6 +71,13 @@ class EventController extends Controller
             return redirect()->back()->with(['flash_message04'=>'Update success.']);
     }
 
+    public static function getEvent()
+    {
+        $data = Event::get();
+
+        return \Response::json($data);
+    }
+
     public function insert (request $request)
     {
         $rules = [
@@ -196,5 +203,140 @@ class EventController extends Controller
     {
         DB::table('Comment')->where('idComment',$menu)->delete();
         return redirect()->back();
+    }
+
+    public static function getEvents()
+    {
+        $data = [
+          "listEvents" => [
+            [
+              "id" => "1",
+              "name" => "Lễ Hội Bắn Pháo Hoa Quốc Tế",
+              "money" => "2000",
+              "address" => "Cầu Sông Hàn, Thành Phố Đà Nẵng",
+              "description" => "Lễ Hội Pháo Hoa Đà Nẵng 2017 (DIFF 2017) được đổi tên từ cuộc thi trình diễn pháo hoa quốc tế Đà Nẵng DIFC sẽ kéo dài 2 tháng với 5 đêm bắn => 30/4, 20/5, 27/5, 03/6 và 24/6/2017 được đánh giá là sự kiện lễ hội lớn nhất Châu Á, với sự tham gia của 8 đội dự thi đến từ nhiều quốc gia có truyền thống bắn pháo hoa lâu năm. Khi đến với cuộc thi bắn pháo hoa quốc tế Đà Nẵng 2017 thì ngoài việc bạn được mãn nhãn với những màn bắn pháo hoa tuyệt đẹp của các đội dự thi trổ tài thì bạn có thể tham gia cùng với 24 lễ hội đồng hành cùng pháo hoa => Vũ Điệu Đường Phố, Âm nhạc đường phố, Không gian ẩm thực ngũ hành, lễ hội du lịch biển Đà Nẵng 2017",
+              "rate" => [
+                "id" => "r0",
+                "countRate" => "50",
+                "countComment" => "10",
+                "listUser" => [
+                  [
+                    "id" => "id00001",
+                    "name" => "Vien",
+                    "email" => "viennguyen@gmail.com",
+                    "username" => "viennguyen"
+                  ],
+                  [
+                    "id" => "id00003",
+                    "name" => "Dinh",
+                    "email" => "longngao@gmail.com",
+                    "username" => "longngao"
+                  ],
+                  [
+                    "id" => "id00004",
+                    "name" => "Lam",
+                    "email" => "lampham@gmail.com",
+                    "username" => "lampham"
+                  ]
+                ]
+              ],
+              "imagesHorizontal" => [
+                "phaohoa1.png",
+                "phaohoa2.png",
+                "phaohoa3.png",
+              ],
+              "imagesVertical" => [
+                "phaohoa0.png",
+              ],
+              "timeStart" => "10/10/2017",
+              "timeEnd" => "31/12/2017"
+            ],
+            [
+              "id" => "2",
+              "name" => "Lễ Hội Đua Thuyền Đà Nẵng",
+              "money" => "3000",
+              "address" => "Cầu Sông Hàn, Thành Phố Đà Nẵng",
+              "description" => "Theo ông cha kể lại, người xưa tổ chức Lễ hội đua thuyền vào ngày đầu xuân để khai thông sông rạch với ước muốn cầu mong mưa thuận, gió hòa. Làng nào giành chiến thắng trong cuộc đua thì năm đó sẽ gặp nhiều may mắn, làm ăn phát đạt. Từ xa xưa, kể cả trong những năm chiến tranh ác liệt hay thời bình, giải đua thuyền đã trở thành thông lệ trong những ngày đầu năm.",
+              "rate" => [
+                "id" => "r2",
+                "countRate" => "30",
+                "countComment" => "14",
+                "listUser" => [
+                  [
+                    "id" => "id00007",
+                    "name" => "Dung",
+                    "email" => "nguyendungitbk@gmail.com",
+                    "username" => "NPD"
+                  ],
+                  [
+                    "id" => "id00003",
+                    "name" => "Dinh",
+                    "email" => "longngao@gmail.com",
+                    "username" => "longngao"
+                  ],
+                  [
+                    "id" => "id00004",
+                    "name" => "Lam",
+                    "email" => "lampham@gmail.com",
+                    "username" => "lampham"
+                  ]
+                ]
+              ],
+              "imagesHorizontal" => [
+                "duathuyen1.png",
+                "duathuyen2.png",
+                "duathuyen3.png",
+              ],
+              "imagesVertical" => [
+                "duathuyen0.png",
+              ],
+              "timeStart" => "06/01/2018",
+              "timeEnd" => "08/01/2018"
+            ],
+            [
+              "id" => "3",
+              "name" => "Lễ hội Cầu ngư",
+              "money" => "1000",
+              "address" => "Cầu Sông Hàn, Thành Phố Đà Nẵng",
+              "description" => "Lễ hội Cá Ông (còn được gọi là lễ tế Cá Voi) là lễ hội lớn nhất của ngư dân thành phố Đà Nẵng. Thờ  Cá Ông ở đây không chỉ được xem là sự tôn kính thần linh mà còn gắn liền với sự hưng thịnh của cả làng. 'Ông' là tiếng gọi tôn kính của ngư dân dành riêng cho cá voi, loài cá thường giúp họ vượt qua tai nạn khi lênh đênh trên biển cả. Hàng năm, thường là sau khi ăn Tết xong, như dân tổ chức lễ tế cá Ông lồng ghép dưới hình thức Lễ hội Cầu ngư và lễ ra quân đánh bắt vụ cá nam. Tại Đà Nẵng, Lễ hội Cầu ngư được tổ chức ở những vùng ven biển như Mân Thái, Thọ Quang, Thanh Lộc Đán, Xuân Hà, Hòa Hiệp...",
+              "rate" => [
+                "id" => "r3",
+                "countRate" => "30",
+                "countComment" => "10",
+                "listUser" => [
+                  [
+                    "id" => "id00007",
+                    "name" => "Dung",
+                    "email" => "nguyendungitbk@gmail.com",
+                    "username" => "NPD"
+                  ],
+                  [
+                    "id" => "id00003",
+                    "name" => "Dinh",
+                    "email" => "longngao@gmail.com",
+                    "username" => "longngao"
+                  ],
+                  [
+                    "id" => "id00004",
+                    "name" => "Lam",
+                    "email" => "lampham@gmail.com",
+                    "username" => "lampham"
+                  ]
+                ]
+              ],
+              "imagesHorizontal" => [
+                "caungu1.png",
+                "caungu2.png",
+                "caungu3.png",
+              ],
+              "imagesVertical" => [
+                "caungu0.png",
+              ],
+              "timeStart" => "10/03/2018",
+              "timeEnd" => "11/03/2018s"
+            ],
+          ],
+        ];
+        return $data;
     }
 }
